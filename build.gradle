@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.gretty' version '2.3.1'
+}
+
+group 'zZooMm'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+gretty{
+    httpPort = 8083
+}
+
+wrapper {
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    compile group: 'org.freemarker', name: 'freemarker', version: '2.3.28'
+
+    compile group: 'com.h2database', name: 'h2', version: '1.4.199'
+    compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
+}
