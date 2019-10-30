@@ -1,0 +1,2 @@
+INSERT INTO HOTEL (NAME, DESCRIPTION, COUNTRY, CITY, STAR, WEBSITE) VALUES ('zZooMm', 'well yes zZooMm', 'Russia', 'Bryansk', 6, 'zZooMm.ru');
+INSERT INTO HOTEL (NAME, DESCRIPTION, COUNTRY, CITY, STAR, WEBSITE) VALUES ('zZooMm 2', 'well yes zZooMm 2', 'Russia', 'Bryansk', 1, 'zZooMm2.ru');

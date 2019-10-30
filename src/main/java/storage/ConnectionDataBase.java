@@ -9,8 +9,7 @@ import java.sql.SQLException;
 /**
  * Класс для подключения к БД
  */
-public class ConnectionDataBase
-{
+public class ConnectionDataBase {
     /**
      * Синглтон для подключения к БД
      */
@@ -21,20 +20,16 @@ public class ConnectionDataBase
      *
      * @return Connection or null
      */
-    public static Connection getConnection()
-    {
-        try
-        {
-            if (connection == null)
-            {
+    public static Connection getConnection() {
+        try {
+            if (connection == null) {
                 String host = PropReader.getVal("host"),
-                        pass = PropReader.getVal("pass"),
-                        user = PropReader.getVal("user");
+                        pass = PropReader.getVal("dbPass"),
+                        user = PropReader.getVal("dbName");
 
                 //Class.forName("org.h2.Driver");
 
-                if (pass.equals("null"))
-                {
+                if (pass.equals("null")) {
                     pass = null;
                 }
 
@@ -42,8 +37,7 @@ public class ConnectionDataBase
             }
 
             return connection;
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
