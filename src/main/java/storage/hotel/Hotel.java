@@ -1,5 +1,8 @@
 package storage.hotel;
 
+/**
+ * Сущность отеля
+ */
 public class Hotel {
 
     /**

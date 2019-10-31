@@ -1,7 +1,11 @@
 package storage.hotel;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Интерфейс отеля
+ */
 public interface HotelDAO {
 
     /**

@@ -9,14 +9,15 @@ import java.util.ArrayList;
 
 public class HotelDataBasePostgreSQL implements HotelDAO {
     @Override
-    public ArrayList<Hotel> getAllHotels() {
+    public ArrayList<Hotel> getAllHotels(){
 
         ArrayList<Hotel> hotels = new ArrayList<Hotel>();
+        Statement statement = null;
 
         try
         {
             ResultSet resultSet = null;
-            Statement statement = ConnectionDataBase.getConnection().createStatement();
+            statement = ConnectionDataBase.getConnection().createStatement();
 
             resultSet = statement.executeQuery("SELECT * FROM hotel;\n");
 
@@ -38,8 +39,10 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
             e.printStackTrace();
             return hotels;
         }
-
-        return hotels;
+        finally {
+            ConnectionDataBase.closeConnection();
+            return hotels;
+        }
     }
 
     @Override
@@ -68,8 +71,10 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
             e.printStackTrace();
             return null;
         }
-
-        return null;
+        finally {
+            ConnectionDataBase.closeConnection();
+            return null;
+        }
     }
 
     @Override
@@ -98,7 +103,9 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
             e.printStackTrace();
             return null;
         }
-
-        return null;
+        finally {
+            ConnectionDataBase.closeConnection();
+            return null;
+        }
     }
 }
