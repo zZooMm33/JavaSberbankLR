@@ -81,12 +81,12 @@ public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
     }
 
     @Override
-    public boolean deleteHotelReviewByUserId(int id) {
+    public boolean deleteHotelReviewById(int id) {
         return false;
     }
 
     @Override
-    public boolean updateHotelReviewByUserId(HotelReview hotelReview) {
+    public boolean updateHotelReviewById(HotelReview hotelReview) {
         return false;
     }
 
@@ -94,4 +94,5 @@ public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
     public boolean addHotelReviewByUserId(HotelReview hotelReview) {
         return false;
     }
+
 }

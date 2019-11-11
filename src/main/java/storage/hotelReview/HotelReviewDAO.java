@@ -2,14 +2,43 @@ package storage.hotelReview;
 
 import java.util.ArrayList;
 
+/**
+ * Интерфейс сущности HotelReview
+ */
 public interface HotelReviewDAO {
-    public ArrayList<HotelReview> getHotelReviewByUserId(int idUser);
 
-    public ArrayList<HotelReview> getHotelReviewByHotelId(int idHotel);
+    /**
+     * Получить список HotelReview по id пользователя
+     * @param idUser id пользователя
+     * @return ArrayList<HotelReview>
+     */
+    ArrayList<HotelReview> getHotelReviewByUserId(int idUser);
 
-    public boolean deleteHotelReviewByUserId(int id);
+    /**
+     * Получить список HotelReview по id отеля
+     * @param idHotel id отеля
+     * @return ArrayList<HotelReview>
+     */
+    ArrayList<HotelReview> getHotelReviewByHotelId(int idHotel);
 
-    public boolean updateHotelReviewByUserId(HotelReview hotelReview);
+    /**
+     * Удалить HotelReview по id
+     * @param id id HotelReview
+     * @return удалось удалить или нет
+     */
+    boolean deleteHotelReviewById(int id);
 
-    public boolean addHotelReviewByUserId(HotelReview hotelReview);
+    /**
+     * Изменить hotelReview
+     * @param hotelReview hotelReview
+     * @return удалось изменить или нет
+     */
+    boolean updateHotelReviewById(HotelReview hotelReview);
+
+    /**
+     * Добавить новый hotelReview
+     * @param hotelReview hotelReview
+     * @return удалось добавить или нет
+     */
+    boolean addHotelReviewByUserId(HotelReview hotelReview);
 }
