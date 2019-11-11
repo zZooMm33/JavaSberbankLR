@@ -152,24 +152,29 @@ public class HotelReview {
             return this;
         }
 
-        public void setIdUser(int idUser) {
+        public HotelReview.Builder setIdUser(int idUser) {
             HotelReview.this.idUser = idUser;
+            return this;
         }
 
-        public void setIdHotel(int idHotel) {
+        public HotelReview.Builder setIdHotel(int idHotel) {
             HotelReview.this.idHotel = idHotel;
+            return this;
         }
 
-        public void setDateOfVisit(String dateOfVisit) {
+        public HotelReview.Builder setDateOfVisit(String dateOfVisit) {
             HotelReview.this.dateOfVisit = dateOfVisit;
+            return this;
         }
 
-        public void setRating(int rating) {
+        public HotelReview.Builder setRating(int rating) {
             HotelReview.this.rating = rating;
+            return this;
         }
 
-        public void setDescription(String description) {
+        public HotelReview.Builder setDescription(String description) {
             HotelReview.this.description = description;
+            return this;
         }
 
         public HotelReview Build() {

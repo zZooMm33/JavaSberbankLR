@@ -1,7 +1,7 @@
 package controllers;
 
 import storage.hotel.Hotel;
-import storage.hotel.HotelSingleton;
+import storage.hotel.HotelInstance;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +18,7 @@ public class Index extends HttpServlet {
         String webAddress = "" + req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort();
 
         String hotels = "";
-        for(Hotel item : HotelSingleton.getHotelSingleton().getAllHotels()){
+        for(Hotel item : HotelInstance.getHotelInstance().getAllHotels()){
             hotels += "id: " + item.getId() + "<br>";
             hotels += "name: " + item.getName() + "<br>";
             hotels += "description: " + item.getDescription() + "<br>";

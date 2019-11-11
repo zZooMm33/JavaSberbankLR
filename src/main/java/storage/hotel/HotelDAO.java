@@ -27,4 +27,11 @@ public interface HotelDAO {
      * @return отель
      */
     public Hotel getHotelById(int id);
+
+    /**
+     * Обновит отеть
+     * @param hotel новый отель
+     * @return удалось ли обновить
+     */
+    public boolean updateHotelById(Hotel hotel);
 }

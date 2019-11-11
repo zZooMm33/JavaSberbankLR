@@ -52,7 +52,7 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
             ResultSet resultSet = null;
             Statement statement = ConnectionDataBase.getConnection().createStatement();
 
-            resultSet = statement.executeQuery("SELECT * FROM hotel WHERE NAME = '" + name + "';\n");
+            resultSet = statement.executeQuery(String.format("SELECT * FROM hotel WHERE NAME = '%s';\n", name));
 
             while (resultSet.next())
             {
@@ -84,7 +84,7 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
             ResultSet resultSet = null;
             Statement statement = ConnectionDataBase.getConnection().createStatement();
 
-            resultSet = statement.executeQuery("SELECT * FROM hotel WHERE id = '" + id + "';\n");
+            resultSet = statement.executeQuery(String.format("SELECT * FROM hotel WHERE id = '%d';\n", id));
 
             while (resultSet.next())
             {
@@ -107,5 +107,10 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
             ConnectionDataBase.closeConnection();
             return null;
         }
+    }
+
+    @Override
+    public boolean updateHotelById(Hotel hotel) {
+        return false;
     }
 }
