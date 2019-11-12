@@ -1,9 +1,10 @@
 package storage.hotelReview;
 
-import storage.hotel.HotelDAO;
-import storage.hotel.HotelDataBasePostgreSQL;
 import utils.PropReader;
 
+/**
+ * Фабрика для интерфейса HotelReviewDAO
+ */
 public class HotelReviewFactory {
     /**
      * Вернет интерфейсе для HotelReviewDAO

@@ -1,7 +1,6 @@
 package storage.hotelReview;
 
 import storage.ConnectionDataBase;
-import storage.hotel.Hotel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,29 +19,30 @@ public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
             ResultSet resultSet = null;
             statement = ConnectionDataBase.getConnection().createStatement();
 
-            resultSet = statement.executeQuery(String.format("SELECT * FROM HOTEL_REVIEW where ID_USER + '%d';\n", idUser));
+            resultSet = statement.executeQuery(String.format("SELECT * FROM HOTEL_REVIEW where ID_USER = %d;\n", idUser));
 
             while (resultSet.next())
             {
 
-                hotelReviews.add(HotelReview.newBuilder()
-                        .setId(resultSet.getInt("ID"))
-                        .setIdUser(resultSet.getInt("ID_USER"))
-                        .setIdHotel(resultSet.getInt("ID_HOTEL"))
-                        .setDateOfVisit(resultSet.getString("DATE_OF_VISIT"))
-                        .setRating(resultSet.getInt("RATING"))
-                        .setDescription(resultSet.getString("DESCRIPTION"))
-                        .Build());
+                hotelReviews.add(HotelReview.HotelReviewBuilder.aHotelReview()
+                        .withId(resultSet.getInt("ID"))
+                        .withIdUser(resultSet.getInt("ID_USER"))
+                        .withIdHotel(resultSet.getInt("ID_HOTEL"))
+                        .withDateOfVisit(resultSet.getString("DATE_OF_VISIT"))
+                        .withRating(resultSet.getInt("RATING"))
+                        .withDescription(resultSet.getString("DESCRIPTION"))
+                        .build());
             }
+
         } catch (SQLException e)
         {
+
             e.printStackTrace();
-            return hotelReviews;
+
         }
-        finally {
-            ConnectionDataBase.closeConnection();
-            return hotelReviews;
-        }
+
+        ConnectionDataBase.closeConnection();
+        return hotelReviews;
     }
 
     @Override
@@ -55,29 +55,30 @@ public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
             ResultSet resultSet = null;
             statement = ConnectionDataBase.getConnection().createStatement();
 
-            resultSet = statement.executeQuery(String.format("SELECT * FROM HOTEL_REVIEW where ID_USER + '%d';\n", idHotel));
+            resultSet = statement.executeQuery(String.format("SELECT * FROM HOTEL_REVIEW where ID_HOTEL = %d;\n", idHotel));
 
             while (resultSet.next())
             {
-
-                hotelReviews.add(HotelReview.newBuilder()
-                        .setId(resultSet.getInt("ID"))
-                        .setIdUser(resultSet.getInt("ID_USER"))
-                        .setIdHotel(resultSet.getInt("ID_HOTEL"))
-                        .setDateOfVisit(resultSet.getString("DATE_OF_VISIT"))
-                        .setRating(resultSet.getInt("RATING"))
-                        .setDescription(resultSet.getString("DESCRIPTION"))
-                        .Build());
+                hotelReviews.add(HotelReview.HotelReviewBuilder.aHotelReview()
+                        .withId(resultSet.getInt("ID"))
+                        .withIdUser(resultSet.getInt("ID_USER"))
+                        .withIdHotel(resultSet.getInt("ID_HOTEL"))
+                        .withDateOfVisit(resultSet.getString("DATE_OF_VISIT"))
+                        .withRating(resultSet.getInt("RATING"))
+                        .withDescription(resultSet.getString("DESCRIPTION"))
+                        .build());
             }
+
+
+
         } catch (SQLException e)
         {
             e.printStackTrace();
-            return hotelReviews;
+
         }
-        finally {
-            ConnectionDataBase.closeConnection();
-            return hotelReviews;
-        }
+
+        ConnectionDataBase.closeConnection();
+        return hotelReviews;
     }
 
     @Override

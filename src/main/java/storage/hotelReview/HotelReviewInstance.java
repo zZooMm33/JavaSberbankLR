@@ -1,20 +1,20 @@
 package storage.hotelReview;
 
 /**
- * Синглтон для работы с сущностью комментариев отеля
+ * Синглтон для работы с HotelReview
  */
 public class HotelReviewInstance {
     /**
      * Синглтон комментариев отеля
      */
-    private static HotelReviewDAO hotelInstance = null;
+    private static HotelReviewDAO hotelReviewInstance = null;
 
     /**
      * Получение / создание сущности комментариев отеля
      * @return отель
      */
-    public static HotelReviewDAO getHotelInstance(){
-        if (hotelInstance == null) hotelInstance = new HotelReviewFactory().factoryMethod();
-        return hotelInstance;
+    public static HotelReviewDAO getHotelReviewInstance(){
+        if (hotelReviewInstance == null) hotelReviewInstance = new HotelReviewFactory().factoryMethod();
+        return hotelReviewInstance;
     }
 }

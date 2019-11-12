@@ -35,6 +35,11 @@ public class Hotel {
     private String website;
 
     /**
+     * Средняя оценка
+     */
+    private int averageRating;
+
+    /**
      * Вернет id
      * @return id
      */
@@ -147,64 +152,91 @@ public class Hotel {
     }
 
     /**
-     * Метод для создания билдера
-     *
-     * @return
+     * Получить среднюю оценку
+     * @return Средняя оценка
      */
-    public static Builder newBuilder() {
-        return new Hotel().new Builder();
+    public int getAverageRating() {
+        return averageRating;
     }
 
     /**
-     * Паттерн билдер
+     * Сохранить среднюю оценку
+     * @param averageRating Средняя оценка
      */
-    public class Builder{
-        public Builder setId(int id) {
-            Hotel.this.id = id;
+    public void setAverageRating(int averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    /**
+     * Билдер
+     */
+    public static final class HotelBuilder {
+        private int id;
+        private String name;
+        private String description;
+        private String country;
+        private String city;
+        private int star;
+        private String website;
+        private int averageRating;
+
+        private HotelBuilder() {
+        }
+
+        public static HotelBuilder aHotel() {
+            return new HotelBuilder();
+        }
+
+        public HotelBuilder withId(int id) {
+            this.id = id;
             return this;
         }
 
-        public Builder setName(String name) {
-            Hotel.this.name = name;
+        public HotelBuilder withName(String name) {
+            this.name = name;
             return this;
         }
 
-        public Builder setDescription(String description) {
-            Hotel.this.description = description;
+        public HotelBuilder withDescription(String description) {
+            this.description = description;
             return this;
         }
 
-        public Builder setCountry(String country) {
-            Hotel.this.country = country;
+        public HotelBuilder withCountry(String country) {
+            this.country = country;
             return this;
         }
 
-        public Builder setCity(String city) {
-            Hotel.this.city = city;
+        public HotelBuilder withCity(String city) {
+            this.city = city;
             return this;
         }
 
-        public Builder setStar(int star) {
-            Hotel.this.star = star;
+        public HotelBuilder withStar(int star) {
+            this.star = star;
             return this;
         }
 
-        public Builder setWebsite(String website) {
-            Hotel.this.website = website;
+        public HotelBuilder withWebsite(String website) {
+            this.website = website;
             return this;
         }
 
-        public Hotel Build(){
+        public HotelBuilder withAverageRating(int averageRating) {
+            this.averageRating = averageRating;
+            return this;
+        }
+
+        public Hotel build() {
             Hotel hotel = new Hotel();
-
-            hotel.setId(Hotel.this.id);
-            hotel.setName(Hotel.this.name);
-            hotel.setDescription(Hotel.this.description);
-            hotel.setCountry(Hotel.this.country);
-            hotel.setCity(Hotel.this.city);
-            hotel.setStar(Hotel.this.star);
-            hotel.setWebsite(Hotel.this.website);
-
+            hotel.setId(id);
+            hotel.setName(name);
+            hotel.setDescription(description);
+            hotel.setCountry(country);
+            hotel.setCity(city);
+            hotel.setStar(star);
+            hotel.setWebsite(website);
+            hotel.setAverageRating(averageRating);
             return hotel;
         }
     }

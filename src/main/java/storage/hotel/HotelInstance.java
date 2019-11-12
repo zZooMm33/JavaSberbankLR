@@ -1,7 +1,7 @@
 package storage.hotel;
 
 /**
- * Синглтон для работы с сущностью отеля
+ * Синглтон для работы с Hotel
  */
 public class HotelInstance {
     /**

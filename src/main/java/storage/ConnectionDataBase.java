@@ -23,16 +23,12 @@ public class ConnectionDataBase {
     public static Connection getConnection() {
         try {
             if (connection == null) {
-                String host = PropReader.getVal("host"),
-                        pass = PropReader.getVal("dbPass"),
-                        user = PropReader.getVal("dbName");
+                String host = PropReader.getVal(PropReader.HOST),
+                        user = PropReader.getVal(PropReader.DATA_BASE_LOGIN),
+                        pass = PropReader.getVal(PropReader.DATA_BASE_PASS);
 
-                //Class.forName("org.h2.Driver");
 
-                if (pass.equals("null")) {
-                    pass = null;
-                }
-
+                assert host != null;
                 connection = DriverManager.getConnection(host, user, pass);
             }
 
@@ -48,14 +44,13 @@ public class ConnectionDataBase {
      * Закрывает соединение с БД
      */
     public static void closeConnection() {
-        try {
-            if (connection != null) {
+        if(connection!=null) {
+            try {
                 connection.close();
-                connection = null;
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-
+            connection = null;
         }
-
     }
 }

@@ -19,34 +19,39 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
             ResultSet resultSet = null;
             statement = ConnectionDataBase.getConnection().createStatement();
 
-            resultSet = statement.executeQuery("SELECT * FROM hotel;\n");
+            resultSet = statement.executeQuery("select H.id, H.name, H.country, H.city, H.website, coalesce(HW.avg, 0) as averageRating from " +
+                    "(SELECT ID, NAME, COUNTRY, CITY, WEBSITE FROM hotel) H " +
+                    "left outer join " +
+                    "(SELECT id_hotel, avg(rating) as AVG FROM hotel_review GROUP BY id_hotel) HW " +
+                    "on H.ID = HW.id_hotel GROUP BY H.id, h.name, h.country, h.website, h.city, hw.AVG ORDER BY h.name");
 
             while (resultSet.next())
             {
-
-                hotels.add(Hotel.newBuilder()
-                        .setId(resultSet.getInt("ID"))
-                        .setName(resultSet.getString("NAME"))
-                        .setDescription(resultSet.getString("DESCRIPTION"))
-                        .setCountry(resultSet.getString("COUNTRY"))
-                        .setCity(resultSet.getString("CITY"))
-                        .setStar(resultSet.getInt("STAR"))
-                        .setWebsite(resultSet.getString("WEBSITE"))
-                        .Build());
+                hotels.add(Hotel.HotelBuilder.aHotel()
+                        .withId(resultSet.getInt("ID"))
+                        .withName(resultSet.getString("NAME"))
+                        .withCountry(resultSet.getString("COUNTRY"))
+                        .withCity(resultSet.getString("CITY"))
+                        .withWebsite(resultSet.getString("WEBSITE"))
+                        .withAverageRating(resultSet.getInt("averageRating"))
+                        .build());
             }
+
         } catch (SQLException e)
         {
             e.printStackTrace();
-            return hotels;
+
         }
-        finally {
-            ConnectionDataBase.closeConnection();
-            return hotels;
-        }
+
+        ConnectionDataBase.closeConnection();
+        return hotels;
     }
 
     @Override
     public Hotel getHotelByName(String name) {
+
+        Hotel hotel =null;
+
         try
         {
             ResultSet resultSet = null;
@@ -54,59 +59,60 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
 
             resultSet = statement.executeQuery(String.format("SELECT * FROM hotel WHERE NAME = '%s';\n", name));
 
-            while (resultSet.next())
-            {
-                return Hotel.newBuilder()
-                        .setId(resultSet.getInt("ID"))
-                        .setName(resultSet.getString("NAME"))
-                        .setDescription(resultSet.getString("DESCRIPTION"))
-                        .setCountry(resultSet.getString("COUNTRY"))
-                        .setCity(resultSet.getString("CITY"))
-                        .setStar(resultSet.getInt("STAR"))
-                        .setWebsite(resultSet.getString("WEBSITE"))
-                        .Build();
+            while (resultSet.next()){
+                hotel = Hotel.HotelBuilder.aHotel()
+                        .withId(resultSet.getInt("ID"))
+                        .withName(resultSet.getString("NAME"))
+                        .withDescription(resultSet.getString("DESCRIPTION"))
+                        .withCountry(resultSet.getString("COUNTRY"))
+                        .withCity(resultSet.getString("CITY"))
+                        .withStar(resultSet.getInt("STAR"))
+                        .withWebsite(resultSet.getString("WEBSITE"))
+                        .build();
             }
         } catch (SQLException e)
         {
+
             e.printStackTrace();
-            return null;
+
         }
-        finally {
-            ConnectionDataBase.closeConnection();
-            return null;
-        }
+
+        ConnectionDataBase.closeConnection();
+        return hotel;
     }
 
     @Override
     public Hotel getHotelById(int id) {
+
+        Hotel hotel = null;
+
         try
         {
-            ResultSet resultSet = null;
+            System.out.println("SELECT");
+            ResultSet resultSet;
             Statement statement = ConnectionDataBase.getConnection().createStatement();
 
-            resultSet = statement.executeQuery(String.format("SELECT * FROM hotel WHERE id = '%d';\n", id));
-
-            while (resultSet.next())
-            {
-                return Hotel.newBuilder()
-                        .setId(resultSet.getInt("ID"))
-                        .setName(resultSet.getString("NAME"))
-                        .setDescription(resultSet.getString("DESCRIPTION"))
-                        .setCountry(resultSet.getString("COUNTRY"))
-                        .setCity(resultSet.getString("CITY"))
-                        .setStar(resultSet.getInt("STAR"))
-                        .setWebsite(resultSet.getString("WEBSITE"))
-                        .Build();
+            resultSet = statement.executeQuery(String.format("SELECT * FROM hotel WHERE id = %d;\n", id));
+            System.out.println("SELECT * FROM hotel WHERE id = " + id + ";\n");
+            while (resultSet.next()){
+                hotel = Hotel.HotelBuilder.aHotel()
+                        .withId(resultSet.getInt("ID"))
+                        .withName(resultSet.getString("NAME"))
+                        .withDescription(resultSet.getString("DESCRIPTION"))
+                        .withCountry(resultSet.getString("COUNTRY"))
+                        .withCity(resultSet.getString("CITY"))
+                        .withStar(resultSet.getInt("STAR"))
+                        .withWebsite(resultSet.getString("WEBSITE"))
+                        .build();
             }
+
         } catch (SQLException e)
         {
-            e.printStackTrace();
-            return null;
+            System.out.println(e);
         }
-        finally {
-            ConnectionDataBase.closeConnection();
-            return null;
-        }
+
+        ConnectionDataBase.closeConnection();
+        return hotel;
     }
 
     @Override

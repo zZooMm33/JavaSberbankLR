@@ -17,6 +17,11 @@ public class HotelReview {
      * Дата посещения отеля
      */
     private String dateOfVisit;
+
+    /**
+     * Возраст пользователя на момент посещения отеля
+     */
+    private String userAgeOfVisit;
     /**
      * Рейтинг (оценка)
      */
@@ -26,14 +31,6 @@ public class HotelReview {
      */
     private String description;
 
-    /**
-     * Метод для создания билдера
-     *
-     * @return
-     */
-    public static HotelReview.Builder newBuilder() {
-        return new HotelReview().new Builder();
-    }
 
     /**
      * Вернет id в таблице
@@ -144,49 +141,82 @@ public class HotelReview {
     }
 
     /**
-     * Паттерн билдер
+     * Получить возраст пользователя на момент посещения отела
+     * @return Возраст пользователя
      */
-    public class Builder {
-        public HotelReview.Builder setId(int id) {
-            HotelReview.this.id = id;
+    public String getUserAgeOfVisit() {
+        return userAgeOfVisit;
+    }
+
+    /**
+     * Сохранить возраст пользователя на момент посещения отела
+     * @param userAgeOfVisit Возраст пользователя
+     */
+    public void setUserAgeOfVisit(String userAgeOfVisit) {
+        this.userAgeOfVisit = userAgeOfVisit;
+    }
+
+
+    public static final class HotelReviewBuilder {
+        private int id;
+        private int idUser;
+        private int idHotel;
+        private String dateOfVisit;
+        private String userAgeOfVisit;
+        private int rating;
+        private String description;
+
+        private HotelReviewBuilder() {
+        }
+
+        public static HotelReviewBuilder aHotelReview() {
+            return new HotelReviewBuilder();
+        }
+
+        public HotelReviewBuilder withId(int id) {
+            this.id = id;
             return this;
         }
 
-        public HotelReview.Builder setIdUser(int idUser) {
-            HotelReview.this.idUser = idUser;
+        public HotelReviewBuilder withIdUser(int idUser) {
+            this.idUser = idUser;
             return this;
         }
 
-        public HotelReview.Builder setIdHotel(int idHotel) {
-            HotelReview.this.idHotel = idHotel;
+        public HotelReviewBuilder withIdHotel(int idHotel) {
+            this.idHotel = idHotel;
             return this;
         }
 
-        public HotelReview.Builder setDateOfVisit(String dateOfVisit) {
-            HotelReview.this.dateOfVisit = dateOfVisit;
+        public HotelReviewBuilder withDateOfVisit(String dateOfVisit) {
+            this.dateOfVisit = dateOfVisit;
             return this;
         }
 
-        public HotelReview.Builder setRating(int rating) {
-            HotelReview.this.rating = rating;
+        public HotelReviewBuilder withUserAgeOfVisit(String userAgeOfVisit) {
+            this.userAgeOfVisit = userAgeOfVisit;
             return this;
         }
 
-        public HotelReview.Builder setDescription(String description) {
-            HotelReview.this.description = description;
+        public HotelReviewBuilder withRating(int rating) {
+            this.rating = rating;
             return this;
         }
 
-        public HotelReview Build() {
+        public HotelReviewBuilder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public HotelReview build() {
             HotelReview hotelReview = new HotelReview();
-
-            hotelReview.setId(HotelReview.this.id);
-            hotelReview.setIdUser(HotelReview.this.idUser);
-            hotelReview.setIdHotel(HotelReview.this.idHotel);
-            hotelReview.setDateOfVisit(HotelReview.this.dateOfVisit);
-            hotelReview.setRating(HotelReview.this.rating);
-            hotelReview.setDescription(HotelReview.this.description);
-
+            hotelReview.setId(id);
+            hotelReview.setIdUser(idUser);
+            hotelReview.setIdHotel(idHotel);
+            hotelReview.setDateOfVisit(dateOfVisit);
+            hotelReview.setUserAgeOfVisit(userAgeOfVisit);
+            hotelReview.setRating(rating);
+            hotelReview.setDescription(description);
             return hotelReview;
         }
     }
