@@ -12,6 +12,11 @@ import java.util.Date;
 
 
 public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
+
+    private static final String REQUEST_GET_HOTEL_REVIEW_BY_USER_ID = "SELECT * FROM HOTEL_REVIEW where ID_USER = %d;\n";
+
+    private static final String REQUEST_GET_HOTEL_REVIEW_BY_HOTEL_ID = "SELECT DATE_OF_VISIT, RATING, DESCRIPTION, UI.date_of_birth FROM HOTEL_REVIEW, (SELECT * FROM user_info) UI where ID_HOTEL = %d AND ID_USER = UI.id;\n";
+
     @Override
     public ArrayList<HotelReview> getHotelReviewByUserId(int idUser) {
         ArrayList<HotelReview> hotelReviews = new ArrayList<HotelReview>();
@@ -22,7 +27,7 @@ public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
             ResultSet resultSet = null;
             statement = ConnectionDataBase.getConnection().createStatement();
 
-            resultSet = statement.executeQuery(String.format("SELECT * FROM HOTEL_REVIEW where ID_USER = %d;\n", idUser));
+            resultSet = statement.executeQuery(String.format(REQUEST_GET_HOTEL_REVIEW_BY_USER_ID, idUser));
 
             while (resultSet.next())
             {
@@ -58,7 +63,7 @@ public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
             ResultSet resultSet = null;
             statement = ConnectionDataBase.getConnection().createStatement();
 
-            resultSet = statement.executeQuery(String.format("SELECT DATE_OF_VISIT, RATING, DESCRIPTION, UI.date_of_birth FROM HOTEL_REVIEW, (SELECT * FROM user_info) UI where ID_HOTEL = %d AND ID_USER = UI.id;\n", idHotel));
+            resultSet = statement.executeQuery(String.format(REQUEST_GET_HOTEL_REVIEW_BY_HOTEL_ID, idHotel));
 
             while (resultSet.next())
             {

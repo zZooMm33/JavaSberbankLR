@@ -8,6 +8,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class HotelDataBasePostgreSQL implements HotelDAO {
+
+    private static final String REQUEST_GET_ALL_HOTELS = String.format("select H.id, H.name, H.country, H.city, H.website, coalesce(HW.avg, 0) as averageRating from \" +\n" +
+            "\"(SELECT ID, NAME, COUNTRY, CITY, WEBSITE FROM hotel) H \" +\n" +
+            "\"left outer join \" +\n" +
+            "\"(SELECT id_hotel, avg(rating) as AVG FROM hotel_review GROUP BY id_hotel) HW \" +\n" +
+            "\"on H.ID = HW.id_hotel GROUP BY H.id, h.name, h.country, h.website, h.city, hw.AVG ORDER BY h.name");
+
+    private static final String REQUEST_GET_HOTEL_BY_NAME = "SELECT * FROM hotel WHERE NAME = '%s';\n";
+
+    private static final String REQUEST_GET_HOTEL_BY_ID = "SELECT * FROM hotel WHERE id = %d;\n";
+
     @Override
     public ArrayList<Hotel> getAllHotels(){
 
@@ -19,11 +30,7 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
             ResultSet resultSet = null;
             statement = ConnectionDataBase.getConnection().createStatement();
 
-            resultSet = statement.executeQuery("select H.id, H.name, H.country, H.city, H.website, coalesce(HW.avg, 0) as averageRating from " +
-                    "(SELECT ID, NAME, COUNTRY, CITY, WEBSITE FROM hotel) H " +
-                    "left outer join " +
-                    "(SELECT id_hotel, avg(rating) as AVG FROM hotel_review GROUP BY id_hotel) HW " +
-                    "on H.ID = HW.id_hotel GROUP BY H.id, h.name, h.country, h.website, h.city, hw.AVG ORDER BY h.name");
+            resultSet = statement.executeQuery(REQUEST_GET_ALL_HOTELS);
 
             while (resultSet.next())
             {
@@ -57,7 +64,7 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
             ResultSet resultSet = null;
             Statement statement = ConnectionDataBase.getConnection().createStatement();
 
-            resultSet = statement.executeQuery(String.format("SELECT * FROM hotel WHERE NAME = '%s';\n", name));
+            resultSet = statement.executeQuery(String.format(REQUEST_GET_HOTEL_BY_NAME, name));
 
             while (resultSet.next()){
                 hotel = Hotel.HotelBuilder.aHotel()
@@ -88,12 +95,10 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
 
         try
         {
-            System.out.println("SELECT");
             ResultSet resultSet;
             Statement statement = ConnectionDataBase.getConnection().createStatement();
 
-            resultSet = statement.executeQuery(String.format("SELECT * FROM hotel WHERE id = %d;\n", id));
-            System.out.println("SELECT * FROM hotel WHERE id = " + id + ";\n");
+            resultSet = statement.executeQuery(String.format(REQUEST_GET_HOTEL_BY_ID, id));
             while (resultSet.next()){
                 hotel = Hotel.HotelBuilder.aHotel()
                         .withId(resultSet.getInt("ID"))
