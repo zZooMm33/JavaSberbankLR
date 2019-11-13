@@ -9,6 +9,8 @@
 
     </head>
     <body>
+        <#include "elements/menu.ftl">
+
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -16,11 +18,11 @@
                     <div class="row justify-content-center">
                         <#list hotels as hotel>
                             <div class="col-3 divHotel">
-                                <p>Name: <a href="${webAddress}/HotelCard?id=${hotel.getId()}">${hotel.getName()}</a></p>
-                                <p>Website: <a href="${hotel.getWebsite()}">${hotel.getWebsite()}</a></p>
-                                <p>Country: ${hotel.getCountry()}</p>
-                                <p>City: ${hotel.getCity()}</p>
-                                <p>Average rating: ${hotel.getAverageRating()}</p>
+                                <p><b>Name:</b> <a href="${webAddress}/HotelCard?id=${hotel.getId()}">${hotel.getName()}</a></p>
+                                <p><b>Website:</b> <a href="${hotel.getWebsite()}">${hotel.getWebsite()}</a></p>
+                                <p><b>Country:</b> ${hotel.getCountry()}</p>
+                                <p><b>City:</b> ${hotel.getCity()}</p>
+                                <p><b>Average rating:</b> ${hotel.getAverageRating()}</p>
                             </div>
                             <div class="col-auto"></div>
                         </#list>

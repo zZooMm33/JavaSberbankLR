@@ -5,7 +5,10 @@ import storage.ConnectionDataBase;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
@@ -55,18 +58,29 @@ public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
             ResultSet resultSet = null;
             statement = ConnectionDataBase.getConnection().createStatement();
 
-            resultSet = statement.executeQuery(String.format("SELECT * FROM HOTEL_REVIEW where ID_HOTEL = %d;\n", idHotel));
+            resultSet = statement.executeQuery(String.format("SELECT DATE_OF_VISIT, RATING, DESCRIPTION, UI.date_of_birth FROM HOTEL_REVIEW, (SELECT * FROM user_info) UI where ID_HOTEL = %d AND ID_USER = UI.id;\n", idHotel));
 
             while (resultSet.next())
             {
-                hotelReviews.add(HotelReview.HotelReviewBuilder.aHotelReview()
-                        .withId(resultSet.getInt("ID"))
-                        .withIdUser(resultSet.getInt("ID_USER"))
-                        .withIdHotel(resultSet.getInt("ID_HOTEL"))
+                HotelReview hotelReview = HotelReview.HotelReviewBuilder.aHotelReview()
                         .withDateOfVisit(resultSet.getString("DATE_OF_VISIT"))
                         .withRating(resultSet.getInt("RATING"))
                         .withDescription(resultSet.getString("DESCRIPTION"))
-                        .build());
+                        .build();
+
+                // находим возраст пользователя на момент посещения отеля
+                try {
+
+                    Date dateOfBirthUser = new SimpleDateFormat("yyyy-MM-dd").parse(resultSet.getString("DATE_OF_BIRTH")),
+                            dateOfVisit = new SimpleDateFormat("yyyy-MM-dd").parse(resultSet.getString("DATE_OF_VISIT"));
+
+                    int userAgeOfVisit = (int) ((dateOfVisit.getTime() - dateOfBirthUser.getTime())/ (24 * 60 * 60 * 1000)) / 365;
+                    hotelReview.setUserAgeOfVisit(Integer.toString(userAgeOfVisit));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                hotelReviews.add(hotelReview);
             }
 
 

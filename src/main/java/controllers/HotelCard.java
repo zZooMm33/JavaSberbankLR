@@ -33,18 +33,21 @@ public class HotelCard extends HttpServlet {
             if (hotel != null){
                 freeMarker.putVal(KEY_HOTEL, hotel);
 
+
                 ArrayList<HotelReview> hotelReview = HotelReviewInstance.getHotelReviewInstance().getHotelReviewByHotelId(hotel.getId());
                 freeMarker.putList(KEY_COMMENTS, hotelReview);
+                resp.getWriter().println(freeMarker);
             }
             else {
-                resp.getWriter().println("No hotel " + id);
+                //Отеля нет с заданным id нет в БД
+                resp.getWriter().println(FreeMarker.generateErrorPage("Hotel not found", webAddress, this));
             }
         }
         else{
-            resp.getWriter().println("No id");
+            // не найден id в url
+            resp.getWriter().println(FreeMarker.generateErrorPage("Error in request", webAddress, this));
         }
 
-        resp.getWriter().println(freeMarker);
         resp.setContentType("text/html");
     }
 }

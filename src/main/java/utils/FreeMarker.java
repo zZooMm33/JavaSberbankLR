@@ -38,7 +38,7 @@ public class FreeMarker {
     /**
      * Страницы с ошибками
      */
-    public static final String FILE_ERROR = "errorPage.ftl";
+    public static final String FILE_ERROR = "error.ftl";
 
 
     /**
@@ -99,11 +99,12 @@ public class FreeMarker {
     /**
      * Вернет страницу с ошибкой
      * @param errorText Текст ошибки
+     * @param webAdress Текущий веб-адрес
      * @param servletClass Класс сервлета
      * @return Текст страницы
      */
-    public static String generateErrorPage(String errorText,Object servletClass){
-        FreeMarker fMarker = new FreeMarker(FreeMarker.FILE_ERROR,"",servletClass);
+    public static String generateErrorPage(String errorText, String webAdress,Object servletClass){
+        FreeMarker fMarker = new FreeMarker(FreeMarker.FILE_ERROR, webAdress, servletClass);
         fMarker.putString(FreeMarker.KEY_ERROR,errorText);
         return fMarker.toString();
     }

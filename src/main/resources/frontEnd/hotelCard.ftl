@@ -9,19 +9,35 @@
 
 </head>
 <body>
+<#include "elements/menu.ftl">
+
 <div class="container">
     <div class="row">
         <div class="col-12">
             <h1 class="mt-4 center">Hotel Card</h1>
 
-            <p>Name: ${hotel.getName()}</p>
-            <p>Website: <a href="${hotel.getWebsite()}">${hotel.getWebsite()}</a></p>
-            <p>Country: ${hotel.getCountry()}</p>
-            <p>City: ${hotel.getCity()}</p>
-            <p>Star: ${hotel.getStar()}</p>
-            <p>Description: ${hotel.getDescription()}</p>
+            <p><b>Name:</b> ${hotel.getName()}</p>
+            <p><b>Website:</b> <a href="${hotel.getWebsite()}">${hotel.getWebsite()}</a></p>
+            <p><b>Country:</b> ${hotel.getCountry()}</p>
+            <p><b>City:</b> ${hotel.getCity()}</p>
+            <p><b>Star:</b> ${hotel.getStar()}</p>
+            <p><b>Description:</b> ${hotel.getDescription()}</p>
+            <br>
 
+            <#if comments?has_content>
+                <p><b>Comments:</b></p>
 
+                <#list comments as comment>
+                    <div class="divHotel">
+                        <p>DateOfVisit: ${comment.getDateOfVisit()}</p>
+                        <p>UserAgeOfVisit: ${comment.getUserAgeOfVisit()}</p>
+                        <p>Rating: ${comment.getRating()}</p>
+                        <p>Description: ${comment.getDescription()}</p>
+                    </div>
+                </#list>
+            <#else>
+                <p><b>No comments</b></p>
+            </#if>
         </div>
     </div>
 </div>
