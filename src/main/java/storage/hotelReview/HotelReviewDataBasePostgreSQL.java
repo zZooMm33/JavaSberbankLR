@@ -22,15 +22,13 @@ public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
         ArrayList<HotelReview> hotelReviews = new ArrayList<HotelReview>();
         Statement statement = null;
 
-        try
-        {
+        try {
             ResultSet resultSet = null;
             statement = ConnectionDataBase.getConnection().createStatement();
 
             resultSet = statement.executeQuery(String.format(REQUEST_GET_HOTEL_REVIEW_BY_USER_ID, idUser));
 
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
 
                 hotelReviews.add(HotelReview.HotelReviewBuilder.aHotelReview()
                         .withId(resultSet.getInt("ID"))
@@ -42,8 +40,7 @@ public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
                         .build());
             }
 
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
 
             e.printStackTrace();
 
@@ -58,15 +55,13 @@ public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
         ArrayList<HotelReview> hotelReviews = new ArrayList<HotelReview>();
         Statement statement = null;
 
-        try
-        {
+        try {
             ResultSet resultSet = null;
             statement = ConnectionDataBase.getConnection().createStatement();
 
             resultSet = statement.executeQuery(String.format(REQUEST_GET_HOTEL_REVIEW_BY_HOTEL_ID, idHotel));
 
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 HotelReview hotelReview = HotelReview.HotelReviewBuilder.aHotelReview()
                         .withDateOfVisit(resultSet.getString("DATE_OF_VISIT"))
                         .withRating(resultSet.getInt("RATING"))
@@ -79,7 +74,7 @@ public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
                     Date dateOfBirthUser = new SimpleDateFormat("yyyy-MM-dd").parse(resultSet.getString("DATE_OF_BIRTH")),
                             dateOfVisit = new SimpleDateFormat("yyyy-MM-dd").parse(resultSet.getString("DATE_OF_VISIT"));
 
-                    int userAgeOfVisit = (int) ((dateOfVisit.getTime() - dateOfBirthUser.getTime())/ (24 * 60 * 60 * 1000)) / 365;
+                    int userAgeOfVisit = (int) ((dateOfVisit.getTime() - dateOfBirthUser.getTime()) / (24 * 60 * 60 * 1000)) / 365;
                     hotelReview.setUserAgeOfVisit(Integer.toString(userAgeOfVisit));
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -89,9 +84,7 @@ public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
             }
 
 
-
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
 
         }

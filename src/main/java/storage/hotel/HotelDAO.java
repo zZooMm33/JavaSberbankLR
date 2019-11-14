@@ -9,12 +9,14 @@ public interface HotelDAO {
 
     /**
      * Список отелей
+     *
      * @return список отелей
      */
     public ArrayList<Hotel> getAllHotels();
 
     /**
      * Вернет информация об отеле по имени
+     *
      * @param name имя отеля
      * @return отель
      */
@@ -22,6 +24,7 @@ public interface HotelDAO {
 
     /**
      * Вернет информация об отеле по id
+     *
      * @param id id отеля
      * @return отель
      */
@@ -29,6 +32,7 @@ public interface HotelDAO {
 
     /**
      * Обновить отель
+     *
      * @param hotel новый отель
      * @return удалось ли обновить
      */

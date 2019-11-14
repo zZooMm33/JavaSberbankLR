@@ -7,6 +7,7 @@ public interface UserInfoDAO {
 
     /**
      * Добавить пользователя
+     *
      * @param userInfo новый пользователь
      * @return удалось добавить или нет
      */
@@ -14,6 +15,7 @@ public interface UserInfoDAO {
 
     /**
      * Изменить пользователя
+     *
      * @param userInfo новый пользователь
      * @return удалось добавить или нет
      */
@@ -21,6 +23,7 @@ public interface UserInfoDAO {
 
     /**
      * Получить пользователя
+     *
      * @param id id пользователя
      * @return пользователь
      */
@@ -29,6 +32,7 @@ public interface UserInfoDAO {
 
     /**
      * Получить пользователя
+     *
      * @param mail mail пользователя
      * @return пользователь
      */

@@ -44,7 +44,7 @@ public class ConnectionDataBase {
      * Закрывает соединение с БД
      */
     public static void closeConnection() {
-        if(connection!=null) {
+        if (connection != null) {
             try {
                 connection.close();
             } catch (SQLException e) {

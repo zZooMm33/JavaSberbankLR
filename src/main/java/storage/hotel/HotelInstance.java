@@ -11,9 +11,10 @@ public class HotelInstance {
 
     /**
      * Получение / создание отеля
+     *
      * @return отель
      */
-    public static HotelDAO getHotelInstance(){
+    public static HotelDAO getHotelInstance() {
         if (hotelInstance == null) hotelInstance = new HotelFactory().factoryMethod();
         return hotelInstance;
     }

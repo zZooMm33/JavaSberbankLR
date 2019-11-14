@@ -41,6 +41,7 @@ public class Hotel {
 
     /**
      * Вернет id
+     *
      * @return id
      */
     public int getId() {
@@ -49,6 +50,7 @@ public class Hotel {
 
     /**
      * Сохранит id
+     *
      * @param id id отеля
      */
     public void setId(int id) {
@@ -57,6 +59,7 @@ public class Hotel {
 
     /**
      * Вернет название отеля
+     *
      * @return название отеля
      */
     public String getName() {
@@ -65,6 +68,7 @@ public class Hotel {
 
     /**
      * Сохранит название отеля
+     *
      * @param name название отеля
      */
     public void setName(String name) {
@@ -73,6 +77,7 @@ public class Hotel {
 
     /**
      * Вернет описание отеля
+     *
      * @return описание отеля
      */
     public String getDescription() {
@@ -81,6 +86,7 @@ public class Hotel {
 
     /**
      * Сохранит описание отеля
+     *
      * @param description описание отеля
      */
     public void setDescription(String description) {
@@ -89,6 +95,7 @@ public class Hotel {
 
     /**
      * Вернет страну расположения отеля
+     *
      * @return название страны
      */
     public String getCountry() {
@@ -97,6 +104,7 @@ public class Hotel {
 
     /**
      * Сохранит страну расположения отеля
+     *
      * @param country название страны
      */
     public void setCountry(String country) {
@@ -105,6 +113,7 @@ public class Hotel {
 
     /**
      * Вернет город расположения отеля
+     *
      * @return название города
      */
     public String getCity() {
@@ -113,6 +122,7 @@ public class Hotel {
 
     /**
      * Сохранит город расположения отеля
+     *
      * @param city город
      */
     public void setCity(String city) {
@@ -121,6 +131,7 @@ public class Hotel {
 
     /**
      * Вернет кол-во звезд отеля
+     *
      * @return кол-во звезд
      */
     public int getStar() {
@@ -129,6 +140,7 @@ public class Hotel {
 
     /**
      * Сохранит кол-во звезд отеля
+     *
      * @param star кол-во звезд
      */
     public void setStar(int star) {
@@ -137,6 +149,7 @@ public class Hotel {
 
     /**
      * Вернет сайт отеля
+     *
      * @return сайт отеля
      */
     public String getWebsite() {
@@ -145,6 +158,7 @@ public class Hotel {
 
     /**
      * Сохранит сайт отеля
+     *
      * @param website сайт отеля
      */
     public void setWebsite(String website) {
@@ -153,6 +167,7 @@ public class Hotel {
 
     /**
      * Получить среднюю оценку
+     *
      * @return Средняя оценка
      */
     public int getAverageRating() {
@@ -161,6 +176,7 @@ public class Hotel {
 
     /**
      * Сохранить среднюю оценку
+     *
      * @param averageRating Средняя оценка
      */
     public void setAverageRating(int averageRating) {

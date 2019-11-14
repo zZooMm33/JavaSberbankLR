@@ -11,9 +11,10 @@ public class UserPassInstance {
 
     /**
      * Получение / создание UserPass
+     *
      * @return UserPass
      */
-    public static UserPassDAO getUserPassInstance(){
+    public static UserPassDAO getUserPassInstance() {
         if (userPassInstance == null) userPassInstance = new UserPassFactory().factoryMethod();
         return userPassInstance;
     }

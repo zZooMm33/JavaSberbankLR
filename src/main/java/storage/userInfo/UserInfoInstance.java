@@ -1,4 +1,5 @@
 package storage.userInfo;
+
 /**
  * Синглтон для работы с UserInfo
  */
@@ -11,9 +12,10 @@ public class UserInfoInstance {
 
     /**
      * Получение / создание UserInfo
+     *
      * @return UserInfo
      */
-    public static UserInfoDAO getUserInfoInstance(){
+    public static UserInfoDAO getUserInfoInstance() {
         if (userInfoInstance == null) userInfoInstance = new UserInfoFactory().factoryMethod();
         return userInfoInstance;
     }

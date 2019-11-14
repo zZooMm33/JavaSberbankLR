@@ -9,6 +9,7 @@ public interface HotelReviewDAO {
 
     /**
      * Получить список HotelReview по id пользователя
+     *
      * @param idUser id пользователя
      * @return ArrayList<HotelReview>
      */
@@ -16,6 +17,7 @@ public interface HotelReviewDAO {
 
     /**
      * Получить список HotelReview по id отеля
+     *
      * @param idHotel id отеля
      * @return ArrayList<HotelReview>
      */
@@ -23,6 +25,7 @@ public interface HotelReviewDAO {
 
     /**
      * Удалить HotelReview по id
+     *
      * @param id id HotelReview
      * @return удалось удалить или нет
      */
@@ -30,6 +33,7 @@ public interface HotelReviewDAO {
 
     /**
      * Изменить hotelReview
+     *
      * @param hotelReview hotelReview
      * @return удалось изменить или нет
      */
@@ -37,6 +41,7 @@ public interface HotelReviewDAO {
 
     /**
      * Добавить новый hotelReview
+     *
      * @param hotelReview hotelReview
      * @return удалось добавить или нет
      */

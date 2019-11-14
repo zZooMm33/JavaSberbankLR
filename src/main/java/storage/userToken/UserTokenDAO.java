@@ -6,6 +6,7 @@ package storage.userToken;
 public interface UserTokenDAO {
     /**
      * Добавить UserToken
+     *
      * @param userToken новый UserToken
      * @return удалось или не удалось
      */
@@ -13,6 +14,7 @@ public interface UserTokenDAO {
 
     /**
      * Удалить UserToken
+     *
      * @param token token по которому удалить
      * @return удалось или не удалось
      */
@@ -20,6 +22,7 @@ public interface UserTokenDAO {
 
     /**
      * Изменить UserToken
+     *
      * @param userToken новый UserToken
      * @return удалось или не удалось
      */

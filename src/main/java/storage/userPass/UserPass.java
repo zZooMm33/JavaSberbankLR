@@ -17,6 +17,7 @@ public class UserPass {
 
     /**
      * Получить id
+     *
      * @return id
      */
     public int getId() {
@@ -25,6 +26,7 @@ public class UserPass {
 
     /**
      * Сохранит id
+     *
      * @param id id
      */
     public void setId(int id) {
@@ -33,6 +35,7 @@ public class UserPass {
 
     /**
      * Получить id пользователя
+     *
      * @return id пользователя
      */
     public int getIdUser() {
@@ -41,6 +44,7 @@ public class UserPass {
 
     /**
      * Сохранит id польщователя
+     *
      * @param idUser id пользователя
      */
     public void setIdUser(int idUser) {
@@ -49,6 +53,7 @@ public class UserPass {
 
     /**
      * Получить пароль
+     *
      * @return пароль
      */
     public String getPass() {
@@ -57,6 +62,7 @@ public class UserPass {
 
     /**
      * Сохранить пароль
+     *
      * @param pass пароль
      */
     public void setPass(String pass) {

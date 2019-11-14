@@ -142,6 +142,7 @@ public class HotelReview {
 
     /**
      * Получить возраст пользователя на момент посещения отела
+     *
      * @return Возраст пользователя
      */
     public String getUserAgeOfVisit() {
@@ -150,6 +151,7 @@ public class HotelReview {
 
     /**
      * Сохранить возраст пользователя на момент посещения отела
+     *
      * @param userAgeOfVisit Возраст пользователя
      */
     public void setUserAgeOfVisit(String userAgeOfVisit) {

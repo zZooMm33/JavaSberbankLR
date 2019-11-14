@@ -11,9 +11,10 @@ public class UserTokenInstance {
 
     /**
      * Получение / создание UserToken
+     *
      * @return UserToken
      */
-    public static UserTokenDAO getUserTokenInstance(){
+    public static UserTokenDAO getUserTokenInstance() {
         if (userTokenInstance == null) userTokenInstance = new UserTokenFactory().factoryMethod();
         return userTokenInstance;
     }

@@ -34,6 +34,7 @@ public class UserInfo {
 
     /**
      * Получить id
+     *
      * @return id
      */
     public int getId() {
@@ -42,6 +43,7 @@ public class UserInfo {
 
     /**
      * Сохранить id
+     *
      * @param id новый id
      */
     public void setId(int id) {
@@ -50,6 +52,7 @@ public class UserInfo {
 
     /**
      * Получить имя
+     *
      * @return Имя
      */
     public String getFirstName() {
@@ -58,6 +61,7 @@ public class UserInfo {
 
     /**
      * Сохранить имя
+     *
      * @param firstName новое имя
      */
     public void setFirstName(String firstName) {
@@ -66,6 +70,7 @@ public class UserInfo {
 
     /**
      * Получить фамилию
+     *
      * @return фамилия
      */
     public String getLastName() {
@@ -74,6 +79,7 @@ public class UserInfo {
 
     /**
      * Сохранить фамилию
+     *
      * @param lastName новая фамилия
      */
     public void setLastName(String lastName) {
@@ -82,6 +88,7 @@ public class UserInfo {
 
     /**
      * Получить почту
+     *
      * @return почта
      */
     public String getMail() {
@@ -90,6 +97,7 @@ public class UserInfo {
 
     /**
      * Сохранить почту
+     *
      * @param mail новая почта
      */
     public void setMail(String mail) {
@@ -99,6 +107,7 @@ public class UserInfo {
 
     /**
      * Получить дату рождения
+     *
      * @return дата рождения
      */
     public String getDateOfBirth() {
@@ -107,6 +116,7 @@ public class UserInfo {
 
     /**
      * Сохранить дату рождения
+     *
      * @param dateOfBirth дата рождения
      */
     public void setDateOfBirth(String dateOfBirth) {
@@ -115,6 +125,7 @@ public class UserInfo {
 
     /**
      * Получить пол
+     *
      * @return пол
      */
     public String getSex() {
@@ -123,6 +134,7 @@ public class UserInfo {
 
     /**
      * Сохранить пол
+     *
      * @param sex новый пол
      */
     public void setSex(String sex) {

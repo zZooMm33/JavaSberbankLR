@@ -49,80 +49,80 @@ public class FreeMarker {
 
     /**
      * Конструктор
+     *
      * @param templateName Имя шаблона
-     * @param webAddress Текущий веб-адрес
+     * @param webAddress   Текущий веб-адрес
      * @param servletClass Класс для поиска шаблонов в ресурсах
      */
-    public FreeMarker(String templateName,String webAddress, Object servletClass)
-    {
-        try
-        {
+    public FreeMarker(String templateName, String webAddress, Object servletClass) {
+        try {
             this.cfgFreeMarker = new Configuration(Configuration.VERSION_2_3_28);
             cfgFreeMarker.setClassForTemplateLoading(servletClass.getClass(), "/frontEnd/");
             this.temp = cfgFreeMarker.getTemplate(templateName);
             this.outFreeMarker = new StringWriter();
             this.freeMarkerMap = new HashMap<>();
-            this.putString(KEY_WEB_ADDRESS,webAddress);
-        } catch (IOException e)
-        {
+            this.putString(KEY_WEB_ADDRESS, webAddress);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
      * Добавить строковое значение по ключу в шаблон hashmap
+     *
      * @param key Ключ
      * @param val Значение
      */
-    public void putString(String key, String val){
+    public void putString(String key, String val) {
         freeMarkerMap.put(key, val);
     }
 
     /**
      * Добавить значение по ключу к шаблону hashmap
+     *
      * @param key Ключ
      * @param val Значение
      */
-    public void putVal(String key, Object val){
+    public void putVal(String key, Object val) {
         freeMarkerMap.put(key, val);
     }
 
     /**
      * Добавить значения списка в шаблон hashmap
-     * @param key Ключ
+     *
+     * @param key  Ключ
      * @param list Список объектов
      */
-    public void putList(String key, List<?> list){
+    public void putList(String key, List<?> list) {
         freeMarkerMap.put(key, list);
     }
 
     /**
      * Вернет страницу с ошибкой
-     * @param errorText Текст ошибки
-     * @param webAdress Текущий веб-адрес
+     *
+     * @param errorText    Текст ошибки
+     * @param webAdress    Текущий веб-адрес
      * @param servletClass Класс сервлета
      * @return Текст страницы
      */
-    public static String generateErrorPage(String errorText, String webAdress,Object servletClass){
+    public static String generateErrorPage(String errorText, String webAdress, Object servletClass) {
         FreeMarker fMarker = new FreeMarker(FreeMarker.FILE_ERROR, webAdress, servletClass);
-        fMarker.putString(FreeMarker.KEY_ERROR,errorText);
+        fMarker.putString(FreeMarker.KEY_ERROR, errorText);
         return fMarker.toString();
     }
 
 
     /**
      * Преобразовать шаблон в страку
+     *
      * @return Строка с созданным шаблоном или пустая строка
      */
     @Override
-    public String toString()
-    {
-        try
-        {
+    public String toString() {
+        try {
             temp.process(freeMarkerMap, outFreeMarker);
             return outFreeMarker.toString();
-        } catch (TemplateException | IOException e)
-        {
+        } catch (TemplateException | IOException e) {
             e.printStackTrace();
             return "";
         }

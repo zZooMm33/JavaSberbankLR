@@ -20,20 +20,18 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
     private static final String REQUEST_GET_HOTEL_BY_ID = "SELECT * FROM hotel WHERE id = %d;\n";
 
     @Override
-    public ArrayList<Hotel> getAllHotels(){
+    public ArrayList<Hotel> getAllHotels() {
 
         ArrayList<Hotel> hotels = new ArrayList<Hotel>();
         Statement statement = null;
 
-        try
-        {
+        try {
             ResultSet resultSet = null;
             statement = ConnectionDataBase.getConnection().createStatement();
 
             resultSet = statement.executeQuery(REQUEST_GET_ALL_HOTELS);
 
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 hotels.add(Hotel.HotelBuilder.aHotel()
                         .withId(resultSet.getInt("ID"))
                         .withName(resultSet.getString("NAME"))
@@ -44,8 +42,7 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
                         .build());
             }
 
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
 
         }
@@ -57,16 +54,15 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
     @Override
     public Hotel getHotelByName(String name) {
 
-        Hotel hotel =null;
+        Hotel hotel = null;
 
-        try
-        {
+        try {
             ResultSet resultSet = null;
             Statement statement = ConnectionDataBase.getConnection().createStatement();
 
             resultSet = statement.executeQuery(String.format(REQUEST_GET_HOTEL_BY_NAME, name));
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 hotel = Hotel.HotelBuilder.aHotel()
                         .withId(resultSet.getInt("ID"))
                         .withName(resultSet.getString("NAME"))
@@ -77,8 +73,7 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
                         .withWebsite(resultSet.getString("WEBSITE"))
                         .build();
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
 
             e.printStackTrace();
 
@@ -93,13 +88,12 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
 
         Hotel hotel = null;
 
-        try
-        {
+        try {
             ResultSet resultSet;
             Statement statement = ConnectionDataBase.getConnection().createStatement();
 
             resultSet = statement.executeQuery(String.format(REQUEST_GET_HOTEL_BY_ID, id));
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 hotel = Hotel.HotelBuilder.aHotel()
                         .withId(resultSet.getInt("ID"))
                         .withName(resultSet.getString("NAME"))
@@ -111,8 +105,7 @@ public class HotelDataBasePostgreSQL implements HotelDAO {
                         .build();
             }
 
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println(e);
         }
 

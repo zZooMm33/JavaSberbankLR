@@ -7,6 +7,7 @@ public interface UserPassDAO {
 
     /**
      * Добавить пароль
+     *
      * @param userPass новый UserPass
      * @return удалось или не удалось добавить
      */
@@ -14,6 +15,7 @@ public interface UserPassDAO {
 
     /**
      * Изменить пароль
+     *
      * @param userPass новый UserPass
      * @return удалось или не удалось добавить
      */
@@ -21,6 +23,7 @@ public interface UserPassDAO {
 
     /**
      * Получить пароль
+     *
      * @param id id пользователя
      * @return пароль
      */

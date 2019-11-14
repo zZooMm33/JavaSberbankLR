@@ -17,37 +17,37 @@ public class PropReader {
     /**
      * Поле host в config
      */
-    public static  final  String HOST = "host";
+    public static final String HOST = "host";
 
     /**
      * Поле dbLogin в config
      */
-    public static  final  String DATA_BASE_LOGIN = "dbLogin";
+    public static final String DATA_BASE_LOGIN = "dbLogin";
 
     /**
      * Поле dbPass в config
      */
-    public static  final  String DATA_BASE_PASS = "dbPass";
+    public static final String DATA_BASE_PASS = "dbPass";
 
     /**
      * Поле storageType в config
      */
-    public static  final  String STORAGE_TYPE = "storageType";
+    public static final String STORAGE_TYPE = "storageType";
 
     /**
      * Поле salt в config
      */
-    public static  final  String SALT = "salt";
+    public static final String SALT = "salt";
 
     /**
      * Поле maintenance в config
      */
-    public static  final  String MAINTENANCE = "maintenance";
+    public static final String MAINTENANCE = "maintenance";
 
     /**
      * Поле log в config
      */
-    public static  final  String LOG = "log";
+    public static final String LOG = "log";
 
     /**
      * Вернет строку по ключу из config.properties

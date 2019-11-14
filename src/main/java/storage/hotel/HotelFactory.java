@@ -12,7 +12,7 @@ public class HotelFactory {
      *
      * @return Вернет интерфейсе для HotelDAO в зависимаости от настроек в config.properties
      */
-    public HotelDAO factoryMethod(){
+    public HotelDAO factoryMethod() {
         String storageType = PropReader.getVal("storageType");
 
         if (storageType.equals("databasePostgreSQL")) return new HotelDataBasePostgreSQL();

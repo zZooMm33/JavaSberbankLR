@@ -21,6 +21,7 @@ public class Index extends HttpServlet {
 
     /**
      * Метод Get для сервлета
+     *
      * @param req
      * @param resp
      * @throws IOException
