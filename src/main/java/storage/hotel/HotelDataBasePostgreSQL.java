@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 public class HotelDataBasePostgreSQL implements HotelDAO {
 
-    private static final String REQUEST_GET_ALL_HOTELS = String.format("select H.id, H.name, H.country, H.city, H.website, coalesce(HW.avg, 0) as averageRating from \" +\n" +
-            "\"(SELECT ID, NAME, COUNTRY, CITY, WEBSITE FROM hotel) H \" +\n" +
-            "\"left outer join \" +\n" +
-            "\"(SELECT id_hotel, avg(rating) as AVG FROM hotel_review GROUP BY id_hotel) HW \" +\n" +
-            "\"on H.ID = HW.id_hotel GROUP BY H.id, h.name, h.country, h.website, h.city, hw.AVG ORDER BY h.name");
+    private static final String REQUEST_GET_ALL_HOTELS = "select H.id, H.name, H.country, H.city, H.website, coalesce(HW.avg, 0) as averageRating from \n" +
+            "(SELECT ID, NAME, COUNTRY, CITY, WEBSITE FROM hotel) H \n" +
+            "left outer join \n" +
+            "(SELECT id_hotel, avg(rating) as AVG FROM hotel_review GROUP BY id_hotel) HW \n" +
+            "on H.ID = HW.id_hotel GROUP BY H.id, h.name, h.country, h.website, h.city, hw.AVG ORDER BY h.name";
 
     private static final String REQUEST_GET_HOTEL_BY_NAME = "SELECT * FROM hotel WHERE NAME = '%s';\n";
 

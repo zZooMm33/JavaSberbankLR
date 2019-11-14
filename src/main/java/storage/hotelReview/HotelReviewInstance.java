@@ -11,7 +11,7 @@ public class HotelReviewInstance {
 
     /**
      * Получение / создание сущности комментариев отеля
-     * @return отель
+     * @return HotelReview
      */
     public static HotelReviewDAO getHotelReviewInstance(){
         if (hotelReviewInstance == null) hotelReviewInstance = new HotelReviewFactory().factoryMethod();

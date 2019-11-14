@@ -10,4 +10,9 @@ public class UserPassDataBasePostgreSQL implements UserPassDAO {
     public boolean changeUserPass(UserPass userPass) {
         return false;
     }
+
+    @Override
+    public String getPassByUserId(int id) {
+        return null;
+    }
 }

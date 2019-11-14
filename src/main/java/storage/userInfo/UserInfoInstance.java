@@ -11,7 +11,7 @@ public class UserInfoInstance {
 
     /**
      * Получение / создание UserInfo
-     * @return отель
+     * @return UserInfo
      */
     public static UserInfoDAO getUserInfoInstance(){
         if (userInfoInstance == null) userInfoInstance = new UserInfoFactory().factoryMethod();

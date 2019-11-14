@@ -14,7 +14,6 @@ public class PropReader {
      */
     private static final String PROP_FILE_NAME = "config.properties";
 
-
     /**
      * Поле host в config
      */

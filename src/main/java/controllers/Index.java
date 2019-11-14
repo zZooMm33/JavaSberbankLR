@@ -14,8 +14,17 @@ import java.util.ArrayList;
 @WebServlet(urlPatterns = "/")
 public class Index extends HttpServlet {
 
+    /**
+     * Переменная (для ftl) в которую будет записан список отелей
+     */
     public static final String KEY_HOTEL_LIST = "hotels";
 
+    /**
+     * Метод Get для сервлета
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 

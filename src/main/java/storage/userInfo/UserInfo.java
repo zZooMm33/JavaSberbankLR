@@ -1,112 +1,191 @@
 package storage.userInfo;
 
 public class UserInfo {
-    
+
+    /**
+     * id в таблице
+     */
     private int id;
+
+    /**
+     * Имя пользователя
+     */
     private String firstName;
+
+    /**
+     * Фамилия пользователя
+     */
     private String lastName;
+
+    /**
+     * Почта пользователя
+     */
     private String mail;
+
+    /**
+     * Дата рождения
+     */
     private String dateOfBirth;
+
+    /**
+     * Пол
+     */
     private String sex;
 
+    /**
+     * Получить id
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Сохранить id
+     * @param id новый id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Получить имя
+     * @return Имя
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Сохранить имя
+     * @param firstName новое имя
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Получить фамилию
+     * @return фамилия
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Сохранить фамилию
+     * @param lastName новая фамилия
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * Получить почту
+     * @return почта
+     */
     public String getMail() {
         return mail;
     }
 
+    /**
+     * Сохранить почту
+     * @param mail новая почта
+     */
     public void setMail(String mail) {
         this.mail = mail;
     }
 
+
+    /**
+     * Получить дату рождения
+     * @return дата рождения
+     */
     public String getDateOfBirth() {
         return dateOfBirth;
     }
 
+    /**
+     * Сохранить дату рождения
+     * @param dateOfBirth дата рождения
+     */
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
+    /**
+     * Получить пол
+     * @return пол
+     */
     public String getSex() {
         return sex;
     }
 
+    /**
+     * Сохранить пол
+     * @param sex новый пол
+     */
     public void setSex(String sex) {
         this.sex = sex;
     }
 
+
     /**
-     * Метод для создания билдера
-     *
-     * @return
+     * Билдер
      */
-    public static UserInfo.Builder newBuilder() {
-        return new UserInfo().new Builder();
-    }
+    public static final class UserInfoBuilder {
+        private int id;
+        private String firstName;
+        private String lastName;
+        private String mail;
+        private String dateOfBirth;
+        private String sex;
 
-    public class Builder {
-        public UserInfo.Builder setId(int id) {
-            UserInfo.this.id = id;
+        private UserInfoBuilder() {
+        }
+
+        public static UserInfoBuilder anUserInfo() {
+            return new UserInfoBuilder();
+        }
+
+        public UserInfoBuilder withId(int id) {
+            this.id = id;
             return this;
         }
 
-        public UserInfo.Builder setFirstName(String firstName) {
-            UserInfo.this.firstName = firstName;
+        public UserInfoBuilder withFirstName(String firstName) {
+            this.firstName = firstName;
             return this;
         }
 
-        public UserInfo.Builder setLastName(String lastName) {
-            UserInfo.this.lastName = lastName;
+        public UserInfoBuilder withLastName(String lastName) {
+            this.lastName = lastName;
             return this;
         }
 
-        public UserInfo.Builder setMail(String mail) {
-            UserInfo.this.mail = mail;
+        public UserInfoBuilder withMail(String mail) {
+            this.mail = mail;
             return this;
         }
 
-        public UserInfo.Builder setDateOfBirth(String dateOfBirth) {
-            UserInfo.this.dateOfBirth = dateOfBirth;
+        public UserInfoBuilder withDateOfBirth(String dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
             return this;
         }
 
-        public UserInfo.Builder setSex(String sex) {
-            UserInfo.this.sex = sex;
+        public UserInfoBuilder withSex(String sex) {
+            this.sex = sex;
             return this;
         }
 
-        public UserInfo Build(){
+        public UserInfo build() {
             UserInfo userInfo = new UserInfo();
-
-            userInfo.setId(UserInfo.this.id);
-            userInfo.setFirstName(UserInfo.this.firstName);
-            userInfo.setLastName(UserInfo.this.lastName);
-            userInfo.setMail(UserInfo.this.mail);
-            userInfo.setSex(UserInfo.this.sex);
-            userInfo.setDateOfBirth(UserInfo.this.dateOfBirth);
-
+            userInfo.setId(id);
+            userInfo.setFirstName(firstName);
+            userInfo.setLastName(lastName);
+            userInfo.setMail(mail);
+            userInfo.setDateOfBirth(dateOfBirth);
+            userInfo.setSex(sex);
             return userInfo;
         }
     }
