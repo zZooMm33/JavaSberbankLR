@@ -1,34 +1,54 @@
 package storage.hotelReview;
 
+import javax.persistence.*;
+
+/**
+ * Сущность комментариев отеля
+ */
+@Entity
+@Table(name = "HotelReview", schema = "public")
 public class HotelReview {
     /**
      * id в таблице
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private int id;
+
     /**
      * id пользователя
      */
     private int idUser;
+
     /**
      * id отеля
      */
     private int idHotel;
+
     /**
      * Дата посещения отеля
      */
+    @Column(name = "name", length = 100)
     private String dateOfVisit;
+
 
     /**
      * Возраст пользователя на момент посещения отеля
      */
+    @Column(name = "name", length = 100)
     private String userAgeOfVisit;
+
     /**
      * Рейтинг (оценка)
      */
+    @Column(name = "name")
     private int rating;
+
     /**
      * Отзыв
      */
+    @Column(name = "name")
     private String description;
 
 

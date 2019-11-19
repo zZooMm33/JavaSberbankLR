@@ -1,48 +1,37 @@
 package storage;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+/**
+ * Hibernate
+ */
 public class ConnectionHibernate {
 
-//    /**
-//     * Синглтон для подключения к БД
-//     */
-//    static private SessionFactori connection = null;
-//
-//    /**
-//     * Создает подключение к Бд
-//     *
-//     * @return Connection or null
-//     */
-//    public static Connection getConnection() {
-//        try {
-//            if (connection == null) {
-//                String host = PropReader.getVal(PropReader.HOST),
-//                        user = PropReader.getVal(PropReader.DATA_BASE_LOGIN),
-//                        pass = PropReader.getVal(PropReader.DATA_BASE_PASS);
-//
-//
-//                assert host != null;
-//                connection = DriverManager.getConnection(host, user, pass);
-//            }
-//
-//            return connection;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//
-//    }
-//
-//    /**
-//     * Закрывает соединение с БД
-//     */
-//    public static void closeConnection() {
-//        if (connection != null) {
-//            try {
-//                connection.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//            connection = null;
-//        }
-//    }
+    /**
+     * Синглтон для подключения к Hibernate
+     */
+    static private SessionFactory connection = null;
+
+    /**
+     * Создает подключение к Hibernate
+     *
+     * @return Connection or null
+     */
+    public static SessionFactory getConnection() {
+        if (connection == null || connection.isClosed()) {
+            connection = new Configuration().configure().buildSessionFactory();
+        }
+        return connection;
+    }
+
+    /**
+     * Закрывает соединение с Hibernate
+     */
+    public static void closeConnection() {
+        if (connection != null) {
+            connection.close();
+            connection = null;
+        }
+    }
 }

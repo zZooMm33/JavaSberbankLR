@@ -1,4 +1,6 @@
-package storage.hotel;
+package storage.hotel.DAO;
+
+import storage.hotel.Hotel;
 
 import java.util.ArrayList;
 

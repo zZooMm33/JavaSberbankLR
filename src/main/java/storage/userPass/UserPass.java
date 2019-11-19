@@ -1,5 +1,8 @@
 package storage.userPass;
 
+/**
+ * Сущность хранящая пароль пользователя
+ */
 public class UserPass {
 
     /**

@@ -1,5 +1,8 @@
 package storage.userToken;
 
+/**
+ * Сущность для авторизации
+ */
 public class UserToken {
 
     /**

@@ -1,5 +1,7 @@
 package storage.hotelReview;
 
+import storage.hotelReview.DAO.HotelReviewDAO;
+import storage.hotelReview.DAO.HotelReviewJDBCPostgreSQL;
 import utils.PropReader;
 
 /**
@@ -14,7 +16,7 @@ public class HotelReviewFactory {
     public HotelReviewDAO factoryMethod() {
         String storageType = PropReader.getVal("storageType");
 
-        if (storageType.equals("databasePostgreSQL")) return new HotelReviewDataBasePostgreSQL();
+        if (storageType.equals("jdbcPostgreSQL")) return new HotelReviewJDBCPostgreSQL();
         else return null;
     }
 }

@@ -1,6 +1,8 @@
-package storage.userInfo;
+package storage.userInfo.DAO;
 
-public class UserInfoDataBasePostgreSQL implements UserInfoDAO {
+import storage.userInfo.UserInfo;
+
+public class UserInfoJDBCPostgreSQL implements UserInfoDAO {
     @Override
     public boolean addUserInfo(UserInfo userInfo) {
         return false;

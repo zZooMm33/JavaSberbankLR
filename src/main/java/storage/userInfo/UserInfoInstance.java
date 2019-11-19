@@ -1,5 +1,7 @@
 package storage.userInfo;
 
+import storage.userInfo.DAO.UserInfoDAO;
+
 /**
  * Синглтон для работы с UserInfo
  */

@@ -1,42 +1,63 @@
 package storage.hotel;
 
+import javax.persistence.*;
+
 /**
  * Сущность отеля
  */
+@Entity
+@Table(name = "Hotel", schema = "public")
 public class Hotel {
 
     /**
      * id отеля
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private int id;
+
     /**
      * Название
      */
+    @Column(name = "name", length = 60)
     private String name;
+
     /**
      * Описание
      */
+    @Column(name = "description")
     private String description;
+
     /**
      * Страна расположения
      */
+    @Column(name = "country", length = 60)
     private String country;
+
     /**
      * Город расположения
      */
+    @Column(name = "city", length = 60)
     private String city;
+
     /**
      * Количество звезд
      */
+    @Column(name = "star")
     private int star;
+
     /**
      * Веб сайт отеля
      */
+    @Column(name = "website", length = 60)
     private String website;
+
 
     /**
      * Средняя оценка
      */
+    @Column(name = "averageRating")
     private int averageRating;
 
     /**

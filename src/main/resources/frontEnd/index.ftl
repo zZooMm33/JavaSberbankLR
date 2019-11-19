@@ -15,17 +15,26 @@
             <div class="row">
                 <div class="col-12">
                     <h1 class="mt-4 center">Index</h1>
-                    <div class="row justify-content-center">
-                        <#list hotels as hotel>
-                            <div class="col-3 divHotel">
-                                <p><b>Name:</b> <a href="${webAddress}/HotelCard?id=${hotel.getId()}">${hotel.getName()}</a></p>
-                                <p><b>Website:</b> <a href="${hotel.getWebsite()}">${hotel.getWebsite()}</a></p>
-                                <p><b>Country:</b> ${hotel.getCountry()}</p>
-                                <p><b>City:</b> ${hotel.getCity()}</p>
-                                <p><b>Average rating:</b> ${hotel.getAverageRating()}</p>
+
+                        <#if comments?has_content>
+                            <div class="row justify-content-center">
+                                <p><b>Comments:</b></p>
+
+                                <#list hotels as hotel>
+                                    <div class="col-3 divHotel">
+                                        <p><b>Name:</b> <a href="${webAddress}/HotelCard?id=${hotel.getId()}">${hotel.getName()}</a></p>
+                                        <p><b>Website:</b> <a href="${hotel.getWebsite()}">${hotel.getWebsite()}</a></p>
+                                        <p><b>Country:</b> ${hotel.getCountry()}</p>
+                                        <p><b>City:</b> ${hotel.getCity()}</p>
+                                        <p><b>Average rating:</b> ${hotel.getAverageRating()}</p>
+                                    </div>
+                                    <div class="col-auto"></div>
+                                </#list>
                             </div>
-                            <div class="col-auto"></div>
-                        </#list>
+                        <#else>
+                            <p class="left"><b>No hotels</b></p>
+                        </#if>
+
                     </div>
                 </div>
             </div>

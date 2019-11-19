@@ -1,5 +1,7 @@
 package storage.userInfo;
 
+import storage.userInfo.DAO.UserInfoDAO;
+import storage.userInfo.DAO.UserInfoJDBCPostgreSQL;
 import utils.PropReader;
 
 /**
@@ -15,7 +17,7 @@ public class UserInfoFactory {
     public UserInfoDAO factoryMethod() {
         String storageType = PropReader.getVal("storageType");
 
-        if (storageType.equals("databasePostgreSQL")) return new UserInfoDataBasePostgreSQL();
+        if (storageType.equals("jdbcPostgreSQL")) return new UserInfoJDBCPostgreSQL();
         else return null;
     }
 }

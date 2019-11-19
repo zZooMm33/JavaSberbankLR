@@ -2,6 +2,9 @@
     .center{
         text-align: center;
     }
+    .left{
+        text-align: left;
+    }
     .divHotel{
         padding: 15px 10px 10px;
         border: 1px solid black;

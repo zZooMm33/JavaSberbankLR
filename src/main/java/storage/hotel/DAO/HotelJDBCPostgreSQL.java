@@ -1,13 +1,14 @@
-package storage.hotel;
+package storage.hotel.DAO;
 
 import storage.ConnectionDataBase;
+import storage.hotel.Hotel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class HotelDataBasePostgreSQL implements HotelDAO {
+public class HotelJDBCPostgreSQL implements HotelDAO {
 
     private static final String REQUEST_GET_ALL_HOTELS = "select H.id, H.name, H.country, H.city, H.website, coalesce(HW.avg, 0) as averageRating from \n" +
             "(SELECT ID, NAME, COUNTRY, CITY, WEBSITE FROM hotel) H \n" +

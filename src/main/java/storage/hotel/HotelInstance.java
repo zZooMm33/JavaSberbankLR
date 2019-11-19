@@ -1,5 +1,7 @@
 package storage.hotel;
 
+import storage.hotel.DAO.HotelDAO;
+
 /**
  * Синглтон для работы с Hotel
  */

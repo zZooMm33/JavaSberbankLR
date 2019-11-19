@@ -1,6 +1,6 @@
 package storage.userPass;
 
-public class UserPassDataBasePostgreSQL implements UserPassDAO {
+public class UserPassJDBCPostgreSQL implements UserPassDAO {
     @Override
     public boolean addUserPass(UserPass userPass) {
         return false;

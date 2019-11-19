@@ -14,7 +14,7 @@ public class UserTokenFactory {
     public UserTokenDAO factoryMethod() {
         String storageType = PropReader.getVal("storageType");
 
-        if (storageType.equals("databasePostgreSQL")) return new UserTokenDataBasePostgreSQL();
+        if (storageType.equals("jdbcPostgreSQL")) return new UserTokenJDBCPostgreSQL();
         else return null;
     }
 }

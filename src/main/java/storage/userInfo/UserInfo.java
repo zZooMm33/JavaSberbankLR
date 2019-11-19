@@ -1,35 +1,50 @@
 package storage.userInfo;
 
+import javax.persistence.*;
+
+/**
+ * Сущность пользователя
+ */
+@Entity
+@Table(name = "UserInfo", schema = "public")
 public class UserInfo {
 
     /**
      * id в таблице
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private int id;
 
     /**
      * Имя пользователя
      */
+    @Column(name = "name", length = 60)
     private String firstName;
 
     /**
      * Фамилия пользователя
      */
+    @Column(name = "name", length = 60)
     private String lastName;
 
     /**
      * Почта пользователя
      */
+    @Column(name = "name", length = 100)
     private String mail;
 
     /**
      * Дата рождения
      */
+    @Column(name = "name", length = 100)
     private String dateOfBirth;
 
     /**
      * Пол
      */
+    @Column(name = "name", length = 50)
     private String sex;
 
     /**

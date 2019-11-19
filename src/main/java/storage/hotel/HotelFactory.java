@@ -1,5 +1,8 @@
 package storage.hotel;
 
+import storage.hotel.DAO.HotelDAO;
+import storage.hotel.DAO.HotelHibernatePostgreSQL;
+import storage.hotel.DAO.HotelJDBCPostgreSQL;
 import utils.PropReader;
 
 /**
@@ -15,7 +18,8 @@ public class HotelFactory {
     public HotelDAO factoryMethod() {
         String storageType = PropReader.getVal("storageType");
 
-        if (storageType.equals("databasePostgreSQL")) return new HotelDataBasePostgreSQL();
+        if (storageType.equals("jdbcPostgreSQL")) return new HotelJDBCPostgreSQL();
+        else if (storageType.equals("hibernatePostgreSQL")) return new HotelHibernatePostgreSQL();
         else return null;
     }
 }

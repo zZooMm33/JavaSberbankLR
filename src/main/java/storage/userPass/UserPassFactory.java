@@ -14,7 +14,7 @@ public class UserPassFactory {
     public UserPassDAO factoryMethod() {
         String storageType = PropReader.getVal("storageType");
 
-        if (storageType.equals("databasePostgreSQL")) return new UserPassDataBasePostgreSQL();
+        if (storageType.equals("jdbcPostgreSQL")) return new UserPassJDBCPostgreSQL();
         else return null;
     }
 }

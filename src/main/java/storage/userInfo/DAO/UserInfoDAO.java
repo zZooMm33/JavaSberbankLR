@@ -1,4 +1,6 @@
-package storage.userInfo;
+package storage.userInfo.DAO;
+
+import storage.userInfo.UserInfo;
 
 /**
  * Интерфейс сущности UserInfo

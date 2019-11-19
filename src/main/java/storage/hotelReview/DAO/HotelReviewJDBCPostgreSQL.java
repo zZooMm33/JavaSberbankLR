@@ -1,6 +1,7 @@
-package storage.hotelReview;
+package storage.hotelReview.DAO;
 
 import storage.ConnectionDataBase;
+import storage.hotelReview.HotelReview;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-public class HotelReviewDataBasePostgreSQL implements HotelReviewDAO {
+public class HotelReviewJDBCPostgreSQL implements HotelReviewDAO {
 
     private static final String REQUEST_GET_HOTEL_REVIEW_BY_USER_ID = "SELECT * FROM HOTEL_REVIEW where ID_USER = %d;\n";
 

@@ -1,5 +1,7 @@
 package storage.hotelReview;
 
+import storage.hotelReview.DAO.HotelReviewDAO;
+
 /**
  * Синглтон для работы с HotelReview
  */
