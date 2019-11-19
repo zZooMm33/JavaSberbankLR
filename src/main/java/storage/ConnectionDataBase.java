@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Класс для подключения к БД
+ * Класс для подключения к БД (jdbc)
  */
 public class ConnectionDataBase {
     /**
