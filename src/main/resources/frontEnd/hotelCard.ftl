@@ -24,10 +24,10 @@
             <p><b>Description:</b> ${hotel.getDescription()}</p>
             <br>
 
-            <#if comments?has_content>
+            <#if hotel.getHotelReview()?has_content>
                 <p><b>Comments:</b></p>
 
-                <#list comments as comment>
+                <#list hotel.getHotelReview() as comment>
                     <div class="divHotel">
                         <p>DateOfVisit: ${comment.getDateOfVisit()}</p>
                         <p>UserAgeOfVisit: ${comment.getUserAgeOfVisit()}</p>

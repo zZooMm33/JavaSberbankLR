@@ -16,7 +16,7 @@
                 <div class="col-12">
                     <h1 class="mt-4 center">Index</h1>
 
-                        <#if comments?has_content>
+                        <#if hotels?has_content>
                             <div class="row justify-content-center">
                                 <p><b>Comments:</b></p>
 

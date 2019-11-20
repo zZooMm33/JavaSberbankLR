@@ -1,6 +1,9 @@
 package storage.userInfo;
 
+import storage.hotelReview.HotelReview;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 
 /**
  * Сущность пользователя
@@ -20,32 +23,39 @@ public class UserInfo {
     /**
      * Имя пользователя
      */
-    @Column(name = "name", length = 60)
+    @Column(name = "firstName", length = 60)
     private String firstName;
 
     /**
      * Фамилия пользователя
      */
-    @Column(name = "name", length = 60)
+    @Column(name = "lastName", length = 60)
     private String lastName;
 
     /**
      * Почта пользователя
      */
-    @Column(name = "name", length = 100)
+    @Column(name = "mail", length = 100)
     private String mail;
 
     /**
      * Дата рождения
      */
-    @Column(name = "name", length = 100)
+    @Column(name = "dateOfBirth", length = 100)
     private String dateOfBirth;
 
     /**
      * Пол
      */
-    @Column(name = "name", length = 50)
+    @Column(name = "sex", length = 50)
     private String sex;
+
+    /**
+     * Комментраии пользователя
+     */
+    @OneToMany
+    @OrderBy("idUser")
+    private ArrayList<HotelReview> hotelReview = new ArrayList<HotelReview>();
 
     /**
      * Получить id
@@ -140,7 +150,6 @@ public class UserInfo {
 
     /**
      * Получить пол
-     *
      * @return пол
      */
     public String getSex() {
@@ -149,13 +158,27 @@ public class UserInfo {
 
     /**
      * Сохранить пол
-     *
      * @param sex новый пол
      */
     public void setSex(String sex) {
         this.sex = sex;
     }
 
+    /**
+     * Получить комментарии данного пользователя
+     * @return Комментарии
+     */
+    public ArrayList<HotelReview> getHotelReview() {
+        return hotelReview;
+    }
+
+    /**
+     * Сохранить комментарии данного пользователя
+     * @param hotelReview Комментарии
+     */
+    public void setHotelReview(ArrayList<HotelReview> hotelReview) {
+        this.hotelReview = hotelReview;
+    }
 
     /**
      * Билдер
@@ -167,6 +190,7 @@ public class UserInfo {
         private String mail;
         private String dateOfBirth;
         private String sex;
+        private ArrayList<HotelReview> hotelReview = new ArrayList<HotelReview>();
 
         private UserInfoBuilder() {
         }
@@ -205,6 +229,11 @@ public class UserInfo {
             return this;
         }
 
+        public UserInfoBuilder withHotelReview(ArrayList<HotelReview> hotelReview) {
+            this.hotelReview = hotelReview;
+            return this;
+        }
+
         public UserInfo build() {
             UserInfo userInfo = new UserInfo();
             userInfo.setId(id);
@@ -213,6 +242,7 @@ public class UserInfo {
             userInfo.setMail(mail);
             userInfo.setDateOfBirth(dateOfBirth);
             userInfo.setSex(sex);
+            userInfo.hotelReview = this.hotelReview;
             return userInfo;
         }
     }

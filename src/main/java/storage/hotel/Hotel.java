@@ -1,6 +1,9 @@
 package storage.hotel;
 
+import storage.hotelReview.HotelReview;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 
 /**
  * Сущность отеля
@@ -59,6 +62,13 @@ public class Hotel {
      */
     @Column(name = "averageRating")
     private int averageRating;
+
+    /**
+     * Комментарии отеля
+     */
+    @OneToMany
+    @OrderBy("idHotel")
+    private ArrayList<HotelReview> hotelReview = new ArrayList<HotelReview>();
 
     /**
      * Вернет id
@@ -205,6 +215,22 @@ public class Hotel {
     }
 
     /**
+     * Получить комментарии данного отеля
+     * @return Комментарии
+     */
+    public ArrayList<HotelReview> getHotelReview() {
+        return hotelReview;
+    }
+
+    /**
+     * Сохранить комментарии данного отеля
+     * @param hotelReview Комментарии
+     */
+    public void setHotelReview(ArrayList<HotelReview> hotelReview) {
+        this.hotelReview = hotelReview;
+    }
+
+    /**
      * Билдер
      */
     public static final class HotelBuilder {
@@ -216,6 +242,7 @@ public class Hotel {
         private int star;
         private String website;
         private int averageRating;
+        private ArrayList<HotelReview> hotelReview = new ArrayList<HotelReview>();
 
         private HotelBuilder() {
         }
@@ -264,6 +291,11 @@ public class Hotel {
             return this;
         }
 
+        public HotelBuilder withHotelReview(ArrayList<HotelReview> hotelReview) {
+            this.hotelReview = hotelReview;
+            return this;
+        }
+
         public Hotel build() {
             Hotel hotel = new Hotel();
             hotel.setId(id);
@@ -274,6 +306,7 @@ public class Hotel {
             hotel.setStar(star);
             hotel.setWebsite(website);
             hotel.setAverageRating(averageRating);
+            hotel.hotelReview = this.hotelReview;
             return hotel;
         }
     }

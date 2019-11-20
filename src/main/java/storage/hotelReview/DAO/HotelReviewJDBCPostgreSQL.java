@@ -33,8 +33,6 @@ public class HotelReviewJDBCPostgreSQL implements HotelReviewDAO {
 
                 hotelReviews.add(HotelReview.HotelReviewBuilder.aHotelReview()
                         .withId(resultSet.getInt("ID"))
-                        .withIdUser(resultSet.getInt("ID_USER"))
-                        .withIdHotel(resultSet.getInt("ID_HOTEL"))
                         .withDateOfVisit(resultSet.getString("DATE_OF_VISIT"))
                         .withRating(resultSet.getInt("RATING"))
                         .withDescription(resultSet.getString("DESCRIPTION"))

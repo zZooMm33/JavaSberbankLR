@@ -1,6 +1,7 @@
 package storage.userInfo;
 
 import storage.userInfo.DAO.UserInfoDAO;
+import storage.userInfo.DAO.UserInfoHibernatePostgreSQL;
 import storage.userInfo.DAO.UserInfoJDBCPostgreSQL;
 import utils.PropReader;
 
@@ -18,6 +19,7 @@ public class UserInfoFactory {
         String storageType = PropReader.getVal("storageType");
 
         if (storageType.equals("jdbcPostgreSQL")) return new UserInfoJDBCPostgreSQL();
+        else if (storageType.equals("hibernatePostgreSQL")) return new UserInfoHibernatePostgreSQL();
         else return null;
     }
 }

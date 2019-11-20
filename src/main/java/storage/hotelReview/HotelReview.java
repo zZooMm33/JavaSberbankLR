@@ -1,5 +1,8 @@
 package storage.hotelReview;
 
+import storage.hotel.Hotel;
+import storage.userInfo.UserInfo;
+
 import javax.persistence.*;
 
 /**
@@ -17,44 +20,47 @@ public class HotelReview {
     private int id;
 
     /**
-     * id пользователя
+     * id пользователя (сущность)
      */
-    private int idUser;
+    @ManyToOne
+    @JoinColumn(name = "idUser")
+    private UserInfo idUser;
 
     /**
-     * id отеля
+     * id отеля (сущность)
      */
-    private int idHotel;
+    @ManyToOne
+    @JoinColumn(name = "idHotel")
+    private Hotel idHotel;
 
     /**
      * Дата посещения отеля
      */
-    @Column(name = "name", length = 100)
+    @Column(name = "dateOfVisit", length = 100)
     private String dateOfVisit;
 
 
     /**
      * Возраст пользователя на момент посещения отеля
      */
-    @Column(name = "name", length = 100)
+    @Column(name = "userAgeOfVisit", length = 100)
     private String userAgeOfVisit;
 
     /**
      * Рейтинг (оценка)
      */
-    @Column(name = "name")
+    @Column(name = "rating")
     private int rating;
 
     /**
      * Отзыв
      */
-    @Column(name = "name")
+    @Column(name = "description")
     private String description;
 
 
     /**
      * Вернет id в таблице
-     *
      * @return id в таблице
      */
     public int getId() {
@@ -63,7 +69,6 @@ public class HotelReview {
 
     /**
      * Сохранит id
-     *
      * @param id id
      */
     public void setId(int id) {
@@ -71,44 +76,39 @@ public class HotelReview {
     }
 
     /**
-     * Вернет id пользоватля который оставил отзыв
-     *
-     * @return id пользователя
+     * Пользователь который оставил комментарий
+     * @return пользователь
      */
-    public int getIdUser() {
+    public UserInfo getIdUser() {
         return idUser;
     }
 
     /**
-     * Сохранит id пользователя
-     *
-     * @param idUser id пользователя
+     * Сохранит нового пользователя
+     * @param idUser пользователь
      */
-    public void setIdUser(int idUser) {
+    public void setIdUser(UserInfo idUser) {
         this.idUser = idUser;
     }
 
     /**
-     * Вернет id отеля о котором оставили отзыв
-     *
-     * @return id отеля
+     * Вернет отель для которого был добавлен комментарий
+     * @return комментарий
      */
-    public int getIdHotel() {
+    public Hotel getIdHotel() {
         return idHotel;
     }
 
     /**
-     * Сохранит id отеля о котором оставили отзыв
-     *
-     * @param idHotel id отеля
+     * Сохранит отель для которого был добавлен комментарий
+     * @param idHotel отель
      */
-    public void setIdHotel(int idHotel) {
+    public void setIdHotel(Hotel idHotel) {
         this.idHotel = idHotel;
     }
 
     /**
      * Вернет дату посещения отеля
-     *
      * @return дата посещения отеля
      */
     public String getDateOfVisit() {
@@ -178,11 +178,13 @@ public class HotelReview {
         this.userAgeOfVisit = userAgeOfVisit;
     }
 
-
+    /**
+     * Билдер
+     */
     public static final class HotelReviewBuilder {
         private int id;
-        private int idUser;
-        private int idHotel;
+        private UserInfo idUser;
+        private Hotel idHotel;
         private String dateOfVisit;
         private String userAgeOfVisit;
         private int rating;
@@ -200,12 +202,12 @@ public class HotelReview {
             return this;
         }
 
-        public HotelReviewBuilder withIdUser(int idUser) {
+        public HotelReviewBuilder withIdUser(UserInfo idUser) {
             this.idUser = idUser;
             return this;
         }
 
-        public HotelReviewBuilder withIdHotel(int idHotel) {
+        public HotelReviewBuilder withIdHotel(Hotel idHotel) {
             this.idHotel = idHotel;
             return this;
         }

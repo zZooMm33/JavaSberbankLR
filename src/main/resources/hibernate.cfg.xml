@@ -12,5 +12,7 @@
         <property name="show_sql">true</property>
 
         <mapping class="storage.hotel.Hotel"/>
+        <mapping class="storage.userInfo.UserInfo"/>
+        <mapping class="storage.hotelReview.HotelReview"/>
     </session-factory>
 </hibernate-configuration>

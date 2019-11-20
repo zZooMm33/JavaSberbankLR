@@ -2,7 +2,6 @@ package controllers;
 
 import storage.hotel.Hotel;
 import storage.hotel.HotelInstance;
-import storage.hotelReview.HotelReview;
 import storage.hotelReview.HotelReviewInstance;
 import utils.FreeMarker;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Сервлет для отображения информации о отеле  и его комментариях
@@ -23,11 +21,6 @@ public class HotelCard extends HttpServlet {
      * Переменная (для ftl) в которую будет записана информация об отеле
      */
     public static final String KEY_HOTEL = "hotel";
-
-    /**
-     * Переменная (для ftl) в которую будет записан список отзывов об отеле
-     */
-    public static final String KEY_COMMENTS = "comments";
 
     /**
      * Метод Get для сервлета
@@ -49,10 +42,7 @@ public class HotelCard extends HttpServlet {
 
             if (hotel != null) {
                 freeMarker.putVal(KEY_HOTEL, hotel);
-
-
-                ArrayList<HotelReview> hotelReview = HotelReviewInstance.getHotelReviewInstance().getHotelReviewByHotelId(hotel.getId());
-                freeMarker.putList(KEY_COMMENTS, hotelReview);
+                hotel.setHotelReview(HotelReviewInstance.getHotelReviewInstance().getHotelReviewByHotelId(hotel.getId()));
                 resp.getWriter().println(freeMarker);
             } else {
                 //Отеля нет с заданным id нет в БД
