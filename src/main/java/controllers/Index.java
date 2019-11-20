@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Set;
 
 @WebServlet(urlPatterns = "/")
 public class Index extends HttpServlet {
@@ -31,7 +31,7 @@ public class Index extends HttpServlet {
 
         String webAddress = "" + req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
         FreeMarker freeMarker = new FreeMarker(FreeMarker.FILE_INDEX, webAddress, this);
-        ArrayList<Hotel> hotels = HotelInstance.getHotelInstance().getAllHotels();
+        Set<Hotel> hotels = HotelInstance.getHotelInstance().getAllHotels();
 
         freeMarker.putList(KEY_HOTEL_LIST, hotels);
 

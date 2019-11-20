@@ -1,8 +1,12 @@
 package storage.userInfo.DAO;
 
+import org.apache.log4j.Logger;
+import storage.hotel.DAO.HotelHibernatePostgreSQL;
 import storage.userInfo.UserInfo;
 
 public class UserInfoHibernatePostgreSQL implements UserInfoDAO {
+    private static final Logger logger = Logger.getLogger(HotelHibernatePostgreSQL.class);
+
     @Override
     public boolean addUserInfo(UserInfo userInfo) {
         return false;

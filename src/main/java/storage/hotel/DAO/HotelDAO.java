@@ -2,7 +2,7 @@ package storage.hotel.DAO;
 
 import storage.hotel.Hotel;
 
-import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Интерфейс отеля
@@ -14,7 +14,7 @@ public interface HotelDAO {
      *
      * @return список отелей
      */
-    public ArrayList<Hotel> getAllHotels();
+    public Set<Hotel> getAllHotels();
 
     /**
      * Вернет информация об отеле по имени

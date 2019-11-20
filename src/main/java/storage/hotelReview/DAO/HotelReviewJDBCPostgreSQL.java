@@ -8,19 +8,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class HotelReviewJDBCPostgreSQL implements HotelReviewDAO {
 
-    private static final String REQUEST_GET_HOTEL_REVIEW_BY_USER_ID = "SELECT * FROM HOTEL_REVIEW where ID_USER = %d;\n";
+    private static final String REQUEST_GET_HOTEL_REVIEW_BY_USER_ID = "SELECT * FROM HOTEL_REVIEW where idUSER = %d;\n";
 
-    private static final String REQUEST_GET_HOTEL_REVIEW_BY_HOTEL_ID = "SELECT DATE_OF_VISIT, RATING, DESCRIPTION, UI.date_of_birth FROM HOTEL_REVIEW, (SELECT * FROM user_info) UI where ID_HOTEL = %d AND ID_USER = UI.id;\n";
+    private static final String REQUEST_GET_HOTEL_REVIEW_BY_HOTEL_ID = "SELECT DATEOFVISIT, RATING, DESCRIPTION, UI.dateofbirth FROM HOTEL_REVIEW, (SELECT * FROM user_info) UI where hotel_id = %d AND user_id = UI.id;\n";
 
     @Override
-    public ArrayList<HotelReview> getHotelReviewByUserId(int idUser) {
-        ArrayList<HotelReview> hotelReviews = new ArrayList<HotelReview>();
+    public Set<HotelReview> getHotelReviewByUserId(int idUser) {
+        Set<HotelReview> hotelReviews = new HashSet<HotelReview>();
         Statement statement = null;
 
         try {
@@ -33,7 +34,7 @@ public class HotelReviewJDBCPostgreSQL implements HotelReviewDAO {
 
                 hotelReviews.add(HotelReview.HotelReviewBuilder.aHotelReview()
                         .withId(resultSet.getInt("ID"))
-                        .withDateOfVisit(resultSet.getString("DATE_OF_VISIT"))
+                        .withDateOfVisit(resultSet.getString("DATEOFVISIT"))
                         .withRating(resultSet.getInt("RATING"))
                         .withDescription(resultSet.getString("DESCRIPTION"))
                         .build());
@@ -50,8 +51,8 @@ public class HotelReviewJDBCPostgreSQL implements HotelReviewDAO {
     }
 
     @Override
-    public ArrayList<HotelReview> getHotelReviewByHotelId(int idHotel) {
-        ArrayList<HotelReview> hotelReviews = new ArrayList<HotelReview>();
+    public Set<HotelReview> getHotelReviewByHotelId(int idHotel) {
+        Set<HotelReview> hotelReviews = new HashSet<HotelReview>();
         Statement statement = null;
 
         try {
@@ -62,7 +63,7 @@ public class HotelReviewJDBCPostgreSQL implements HotelReviewDAO {
 
             while (resultSet.next()) {
                 HotelReview hotelReview = HotelReview.HotelReviewBuilder.aHotelReview()
-                        .withDateOfVisit(resultSet.getString("DATE_OF_VISIT"))
+                        .withDateOfVisit(resultSet.getString("DATEOFVISIT"))
                         .withRating(resultSet.getInt("RATING"))
                         .withDescription(resultSet.getString("DESCRIPTION"))
                         .build();
@@ -70,8 +71,8 @@ public class HotelReviewJDBCPostgreSQL implements HotelReviewDAO {
                 // находим возраст пользователя на момент посещения отеля
                 try {
 
-                    Date dateOfBirthUser = new SimpleDateFormat("yyyy-MM-dd").parse(resultSet.getString("DATE_OF_BIRTH")),
-                            dateOfVisit = new SimpleDateFormat("yyyy-MM-dd").parse(resultSet.getString("DATE_OF_VISIT"));
+                    Date dateOfBirthUser = new SimpleDateFormat("yyyy-MM-dd").parse(resultSet.getString("DATEOFBIRTH")),
+                            dateOfVisit = new SimpleDateFormat("yyyy-MM-dd").parse(resultSet.getString("DATEOFVISIT"));
 
                     int userAgeOfVisit = (int) ((dateOfVisit.getTime() - dateOfBirthUser.getTime()) / (24 * 60 * 60 * 1000)) / 365;
                     hotelReview.setUserAgeOfVisit(Integer.toString(userAgeOfVisit));

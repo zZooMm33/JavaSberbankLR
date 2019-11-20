@@ -3,20 +3,21 @@ package storage.hotel;
 import storage.hotelReview.HotelReview;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Сущность отеля
  */
 @Entity
-@Table(name = "Hotel", schema = "public")
+@Table(name = "HOTEL", schema = "public")
 public class Hotel {
 
     /**
      * id отеля
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
@@ -60,15 +61,14 @@ public class Hotel {
     /**
      * Средняя оценка
      */
-    @Column(name = "averageRating")
-    private int averageRating;
+    @Transient
+    private double averageRating;
 
     /**
      * Комментарии отеля
      */
-    @OneToMany
-    @OrderBy("idHotel")
-    private ArrayList<HotelReview> hotelReview = new ArrayList<HotelReview>();
+    @Transient
+    private Set<HotelReview> hotelReview = new HashSet<HotelReview>();
 
     /**
      * Вернет id
@@ -201,7 +201,7 @@ public class Hotel {
      *
      * @return Средняя оценка
      */
-    public int getAverageRating() {
+    public double getAverageRating() {
         return averageRating;
     }
 
@@ -210,7 +210,7 @@ public class Hotel {
      *
      * @param averageRating Средняя оценка
      */
-    public void setAverageRating(int averageRating) {
+    public void setAverageRating(double averageRating) {
         this.averageRating = averageRating;
     }
 
@@ -218,7 +218,7 @@ public class Hotel {
      * Получить комментарии данного отеля
      * @return Комментарии
      */
-    public ArrayList<HotelReview> getHotelReview() {
+    public Set<HotelReview> getHotelReview() {
         return hotelReview;
     }
 
@@ -226,7 +226,7 @@ public class Hotel {
      * Сохранить комментарии данного отеля
      * @param hotelReview Комментарии
      */
-    public void setHotelReview(ArrayList<HotelReview> hotelReview) {
+    public void setHotelReview(Set<HotelReview> hotelReview) {
         this.hotelReview = hotelReview;
     }
 
@@ -241,8 +241,8 @@ public class Hotel {
         private String city;
         private int star;
         private String website;
-        private int averageRating;
-        private ArrayList<HotelReview> hotelReview = new ArrayList<HotelReview>();
+        private double averageRating;
+        private Set<HotelReview> hotelReview = new HashSet<HotelReview>();
 
         private HotelBuilder() {
         }
@@ -286,12 +286,12 @@ public class Hotel {
             return this;
         }
 
-        public HotelBuilder withAverageRating(int averageRating) {
+        public HotelBuilder withAverageRating(double averageRating) {
             this.averageRating = averageRating;
             return this;
         }
 
-        public HotelBuilder withHotelReview(ArrayList<HotelReview> hotelReview) {
+        public HotelBuilder withHotelReview(Set<HotelReview> hotelReview) {
             this.hotelReview = hotelReview;
             return this;
         }
@@ -306,7 +306,7 @@ public class Hotel {
             hotel.setStar(star);
             hotel.setWebsite(website);
             hotel.setAverageRating(averageRating);
-            hotel.hotelReview = this.hotelReview;
+            hotel.setHotelReview(hotelReview);
             return hotel;
         }
     }

@@ -9,29 +9,27 @@ import javax.persistence.*;
  * Сущность комментариев отеля
  */
 @Entity
-@Table(name = "HotelReview", schema = "public")
+@Table(name = "HOTEL_REVIEW", schema = "public")
 public class HotelReview {
     /**
      * id в таблице
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
     /**
      * id пользователя (сущность)
      */
-    @ManyToOne
-    @JoinColumn(name = "idUser")
-    private UserInfo idUser;
+    @ManyToOne(cascade=CascadeType.ALL)
+    private UserInfo user;
 
     /**
      * id отеля (сущность)
      */
-    @ManyToOne
-    @JoinColumn(name = "idHotel")
-    private Hotel idHotel;
+    @ManyToOne(cascade=CascadeType.ALL)
+    private Hotel hotel;
 
     /**
      * Дата посещения отеля
@@ -43,7 +41,7 @@ public class HotelReview {
     /**
      * Возраст пользователя на момент посещения отеля
      */
-    @Column(name = "userAgeOfVisit", length = 100)
+    @Transient
     private String userAgeOfVisit;
 
     /**
@@ -79,32 +77,32 @@ public class HotelReview {
      * Пользователь который оставил комментарий
      * @return пользователь
      */
-    public UserInfo getIdUser() {
-        return idUser;
+    public UserInfo getUser() {
+        return user;
     }
 
     /**
      * Сохранит нового пользователя
-     * @param idUser пользователь
+     * @param user пользователь
      */
-    public void setIdUser(UserInfo idUser) {
-        this.idUser = idUser;
+    public void setUser(UserInfo user) {
+        this.user = user;
     }
 
     /**
      * Вернет отель для которого был добавлен комментарий
      * @return комментарий
      */
-    public Hotel getIdHotel() {
-        return idHotel;
+    public Hotel getHotel() {
+        return hotel;
     }
 
     /**
      * Сохранит отель для которого был добавлен комментарий
-     * @param idHotel отель
+     * @param hotel отель
      */
-    public void setIdHotel(Hotel idHotel) {
-        this.idHotel = idHotel;
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
     /**
@@ -183,8 +181,8 @@ public class HotelReview {
      */
     public static final class HotelReviewBuilder {
         private int id;
-        private UserInfo idUser;
-        private Hotel idHotel;
+        private UserInfo user;
+        private Hotel hotel;
         private String dateOfVisit;
         private String userAgeOfVisit;
         private int rating;
@@ -202,13 +200,13 @@ public class HotelReview {
             return this;
         }
 
-        public HotelReviewBuilder withIdUser(UserInfo idUser) {
-            this.idUser = idUser;
+        public HotelReviewBuilder withUser(UserInfo user) {
+            this.user = user;
             return this;
         }
 
-        public HotelReviewBuilder withIdHotel(Hotel idHotel) {
-            this.idHotel = idHotel;
+        public HotelReviewBuilder withHotel(Hotel hotel) {
+            this.hotel = hotel;
             return this;
         }
 
@@ -235,12 +233,12 @@ public class HotelReview {
         public HotelReview build() {
             HotelReview hotelReview = new HotelReview();
             hotelReview.setId(id);
-            hotelReview.setIdUser(idUser);
-            hotelReview.setIdHotel(idHotel);
             hotelReview.setDateOfVisit(dateOfVisit);
             hotelReview.setUserAgeOfVisit(userAgeOfVisit);
             hotelReview.setRating(rating);
             hotelReview.setDescription(description);
+            hotelReview.user = this.user;
+            hotelReview.hotel = this.hotel;
             return hotelReview;
         }
     }

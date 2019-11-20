@@ -2,7 +2,7 @@ package storage.hotelReview.DAO;
 
 import storage.hotelReview.HotelReview;
 
-import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Интерфейс сущности HotelReview
@@ -15,7 +15,7 @@ public interface HotelReviewDAO {
      * @param idUser id пользователя
      * @return ArrayList<HotelReview>
      */
-    public ArrayList<HotelReview> getHotelReviewByUserId(int idUser);
+    public Set<HotelReview> getHotelReviewByUserId(int idUser);
 
     /**
      * Получить список HotelReview по id отеля
@@ -23,7 +23,7 @@ public interface HotelReviewDAO {
      * @param idHotel id отеля
      * @return ArrayList<HotelReview>
      */
-    public ArrayList<HotelReview> getHotelReviewByHotelId(int idHotel);
+    public Set<HotelReview> getHotelReviewByHotelId(int idHotel);
 
     /**
      * Удалить HotelReview по id

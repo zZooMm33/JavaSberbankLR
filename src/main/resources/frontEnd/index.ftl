@@ -15,11 +15,8 @@
             <div class="row">
                 <div class="col-12">
                     <h1 class="mt-4 center">Index</h1>
-
                         <#if hotels?has_content>
                             <div class="row justify-content-center">
-                                <p><b>Comments:</b></p>
-
                                 <#list hotels as hotel>
                                     <div class="col-3 divHotel">
                                         <p><b>Name:</b> <a href="${webAddress}/HotelCard?id=${hotel.getId()}">${hotel.getName()}</a></p>

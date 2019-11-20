@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Класс для работы с FreeMarker api
@@ -93,7 +93,7 @@ public class FreeMarker {
      * @param key  Ключ
      * @param list Список объектов
      */
-    public void putList(String key, List<?> list) {
+    public void putList(String key, Set<?> list) {
         freeMarkerMap.put(key, list);
     }
 

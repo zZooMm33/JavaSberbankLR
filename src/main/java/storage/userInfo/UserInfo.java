@@ -3,20 +3,21 @@ package storage.userInfo;
 import storage.hotelReview.HotelReview;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Сущность пользователя
  */
 @Entity
-@Table(name = "UserInfo", schema = "public")
+@Table(name = "USER_INFO", schema = "public")
 public class UserInfo {
 
     /**
      * id в таблице
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
@@ -53,9 +54,8 @@ public class UserInfo {
     /**
      * Комментраии пользователя
      */
-    @OneToMany
-    @OrderBy("idUser")
-    private ArrayList<HotelReview> hotelReview = new ArrayList<HotelReview>();
+    @Transient
+    private Set<HotelReview> hotelReview = new HashSet<HotelReview>();
 
     /**
      * Получить id
@@ -168,7 +168,7 @@ public class UserInfo {
      * Получить комментарии данного пользователя
      * @return Комментарии
      */
-    public ArrayList<HotelReview> getHotelReview() {
+    public Set<HotelReview> getHotelReview() {
         return hotelReview;
     }
 
@@ -176,7 +176,7 @@ public class UserInfo {
      * Сохранить комментарии данного пользователя
      * @param hotelReview Комментарии
      */
-    public void setHotelReview(ArrayList<HotelReview> hotelReview) {
+    public void setHotelReview(Set<HotelReview> hotelReview) {
         this.hotelReview = hotelReview;
     }
 
@@ -190,7 +190,7 @@ public class UserInfo {
         private String mail;
         private String dateOfBirth;
         private String sex;
-        private ArrayList<HotelReview> hotelReview = new ArrayList<HotelReview>();
+        private Set<HotelReview> hotelReview = new HashSet<HotelReview>();
 
         private UserInfoBuilder() {
         }
@@ -229,7 +229,7 @@ public class UserInfo {
             return this;
         }
 
-        public UserInfoBuilder withHotelReview(ArrayList<HotelReview> hotelReview) {
+        public UserInfoBuilder withHotelReview(Set<HotelReview> hotelReview) {
             this.hotelReview = hotelReview;
             return this;
         }
