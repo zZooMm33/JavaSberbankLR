@@ -1,8 +1,10 @@
-package controllers;
+package controllers.pages;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import storage.hotel.Hotel;
-import storage.hotel.HotelInstance;
 import utils.FreeMarker;
+import utils.Request;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +33,16 @@ public class Index extends HttpServlet {
 
         String webAddress = "" + req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
         FreeMarker freeMarker = new FreeMarker(FreeMarker.FILE_INDEX, webAddress, this);
-        Set<Hotel> hotels = HotelInstance.getHotelInstance().getAllHotels();
+        Set<Hotel> hotels = null;
+
+        try {
+            String commJson= Request.sendGetRequest(webAddress+"/restApi/hotels");
+            ObjectMapper mapper = new ObjectMapper();
+            hotels = mapper.readValue(commJson, new TypeReference<Set<Hotel>>(){});
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         freeMarker.putList(KEY_HOTEL_LIST, hotels);
 

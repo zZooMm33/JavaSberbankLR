@@ -1,15 +1,18 @@
-package controllers;
+package controllers.pages;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import storage.hotel.Hotel;
-import storage.hotel.HotelInstance;
-import storage.hotelReview.HotelReviewInstance;
+import storage.hotelReview.HotelReview;
 import utils.FreeMarker;
+import utils.Request;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * Сервлет для отображения информации о отеле  и его комментариях
@@ -38,14 +41,32 @@ public class HotelCard extends HttpServlet {
         if (req.getParameterMap().containsKey("id")) {
 
             int id = Integer.parseInt(req.getParameter("id"));
-            Hotel hotel = HotelInstance.getHotelInstance().getHotelById(id);
+            Hotel hotel = null;
+
+            try {
+                String commJson= Request.sendGetRequest(webAddress+"/restApi/hotels?id=" + id);
+                ObjectMapper mapper = new ObjectMapper();
+                hotel = mapper.readValue(commJson, Hotel.class);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
 
             if (hotel != null) {
                 freeMarker.putVal(KEY_HOTEL, hotel);
-                hotel.setHotelReview(HotelReviewInstance.getHotelReviewInstance().getHotelReviewByHotelId(hotel.getId()));
+
+                try {
+                    String commJson= Request.sendGetRequest(webAddress+"/restApi/hotelReviews?idHotel=" + id);
+                    ObjectMapper mapper = new ObjectMapper();
+                    hotel.setHotelReview(mapper.readValue(commJson, new TypeReference<Set<HotelReview>>(){}));
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 resp.getWriter().println(freeMarker);
             } else {
-                //Отеля нет с заданным id нет в БД
+                //Отеля с заданным id нет в БД
                 resp.getWriter().println(FreeMarker.generateErrorPage("Hotel not found", webAddress, this));
             }
         } else {
