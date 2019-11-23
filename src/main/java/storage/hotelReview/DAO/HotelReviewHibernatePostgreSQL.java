@@ -1,12 +1,10 @@
 package storage.hotelReview.DAO;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import storage.ConnectionHibernate;
-import storage.hotel.DAO.HotelHibernatePostgreSQL;
 import storage.hotelReview.HotelReview;
 
 import java.text.ParseException;
@@ -16,8 +14,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class HotelReviewHibernatePostgreSQL implements HotelReviewDAO {
-
-    private static final Logger logger = Logger.getLogger(HotelHibernatePostgreSQL.class);
 
     @Override
     public Set<HotelReview> getHotelReviewByUserId(int idUser) {
@@ -50,18 +46,16 @@ public class HotelReviewHibernatePostgreSQL implements HotelReviewDAO {
                     hotelReview.setUserAgeOfVisit(Integer.toString(userAgeOfVisit));
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    logger.error(e);
                 }
             }
 
             session.getTransaction().commit();
-            logger.info("Request completed successfully.");
+            session.close();
 
         }
         catch (Exception e){
             session.getTransaction().rollback();
             e.printStackTrace();
-            logger.error(e);
         }
 
         return hotelReviews;

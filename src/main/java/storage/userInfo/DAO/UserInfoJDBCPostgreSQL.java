@@ -1,10 +1,11 @@
 package storage.userInfo.DAO;
 
 import storage.userInfo.UserInfo;
+import storage.userPass.UserPass;
 
 public class UserInfoJDBCPostgreSQL implements UserInfoDAO {
     @Override
-    public boolean addUserInfo(UserInfo userInfo) {
+    public boolean addUserInfo(UserInfo userInfo, UserPass userPass) {
         return false;
     }
 

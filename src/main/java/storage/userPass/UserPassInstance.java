@@ -1,5 +1,7 @@
 package storage.userPass;
 
+import storage.userPass.DAO.UserPassDAO;
+
 /**
  * Синглтон для работы с UserPass
  */

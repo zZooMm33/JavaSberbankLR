@@ -1,4 +1,6 @@
-package storage.userPass;
+package storage.userPass.DAO;
+
+import storage.userPass.UserPass;
 
 /**
  * Интерфейс сущности UserPass

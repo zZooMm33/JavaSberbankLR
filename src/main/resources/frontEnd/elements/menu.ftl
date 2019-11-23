@@ -13,7 +13,7 @@
                 <a class="nav-link disabled" href="${webAddress}/" tabindex="-1" aria-disabled="true">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="${webAddress}/" tabindex="-1" aria-disabled="true">Registration</a>
+                <a class="nav-link" href="${webAddress}/Registration">Registration</a>
             </li>
         </ul>
     </div>

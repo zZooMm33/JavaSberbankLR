@@ -35,11 +35,6 @@ public class PropReader {
     public static final String STORAGE_TYPE = "storageType";
 
     /**
-     * Поле salt в config
-     */
-    public static final String SALT = "salt";
-
-    /**
      * Поле maintenance в config
      */
     public static final String MAINTENANCE = "maintenance";

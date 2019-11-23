@@ -1,21 +1,32 @@
 package storage.userPass;
 
+import storage.userInfo.UserInfo;
+
+import javax.persistence.*;
+
 /**
  * Сущность хранящая пароль пользователя
  */
+@Entity
+@Table(name = "USER_PASS", schema = "public")
 public class UserPass {
 
     /**
      * id в таблице
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
     /**
-     * id пользователя
+     * Пользователь пользователя
      */
-    private int idUser;
+    @OneToOne(cascade=CascadeType.ALL)
+    private UserInfo user;
     /**
      * Пароль пользователя
      */
+    @Column(name = "pass", length = 256)
     private String pass;
 
     /**
@@ -37,21 +48,21 @@ public class UserPass {
     }
 
     /**
-     * Получить id пользователя
+     * Получить пользователя
      *
-     * @return id пользователя
+     * @return пользователь
      */
-    public int getIdUser() {
-        return idUser;
+    public UserInfo getUser() {
+        return user;
     }
 
     /**
-     * Сохранит id польщователя
+     * Сохранить пользователя
      *
-     * @param idUser id пользователя
+     * @param user пользователь
      */
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setUser(UserInfo user) {
+        this.user = user;
     }
 
     /**
@@ -77,7 +88,7 @@ public class UserPass {
      */
     public static final class UserPassBuilder {
         private int id;
-        private int idUser;
+        private UserInfo user;
         private String pass;
 
         private UserPassBuilder() {
@@ -92,8 +103,8 @@ public class UserPass {
             return this;
         }
 
-        public UserPassBuilder withIdUser(int idUser) {
-            this.idUser = idUser;
+        public UserPassBuilder withUser(UserInfo user) {
+            this.user = user;
             return this;
         }
 
@@ -104,9 +115,9 @@ public class UserPass {
 
         public UserPass build() {
             UserPass userPass = new UserPass();
-            userPass.pass = this.pass;
-            userPass.id = this.id;
-            userPass.idUser = this.idUser;
+            userPass.setId(id);
+            userPass.setPass(pass);
+            userPass.user = this.user;
             return userPass;
         }
     }

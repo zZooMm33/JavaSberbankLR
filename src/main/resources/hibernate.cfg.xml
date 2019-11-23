@@ -16,5 +16,7 @@
         <mapping class="storage.hotel.Hotel"/>
         <mapping class="storage.userInfo.UserInfo"/>
         <mapping class="storage.hotelReview.HotelReview"/>
+        <mapping class="storage.userPass.UserPass"/>
+        <mapping class="storage.userToken.UserToken"/>
     </session-factory>
 </hibernate-configuration>

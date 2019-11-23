@@ -1,21 +1,32 @@
 package storage.userToken;
 
+import storage.userInfo.UserInfo;
+
+import javax.persistence.*;
+
 /**
  * Сущность для авторизации
  */
+@Entity
+@Table(name = "USER_TOKEN", schema = "public")
 public class UserToken {
 
     /**
      * id в таблице
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
     /**
-     * id пользователя
+     * Пользователь
      */
-    private int idUser;
+    @OneToOne(cascade=CascadeType.ALL)
+    private UserInfo user;
     /**
      * token пользователя
      */
+    @Column(name = "token", length = 256)
     private String token;
 
     /**
@@ -37,21 +48,21 @@ public class UserToken {
     }
 
     /**
-     * Получить id пользователя
+     * Получить пользователя
      *
-     * @return id пользователя
+     * @return пользователь
      */
-    public int getIdUser() {
-        return idUser;
+    public UserInfo getUser() {
+        return user;
     }
 
     /**
-     * Сохранит id польщователя
+     * Сохранит польщователя
      *
-     * @param idUser id пользователя
+     * @param user пользователь
      */
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setUser(UserInfo user) {
+        this.user = user;
     }
 
     /**
@@ -77,7 +88,7 @@ public class UserToken {
      */
     public static final class UserTokenBuilder {
         private int id;
-        private int idUser;
+        private UserInfo user;
         private String token;
 
         private UserTokenBuilder() {
@@ -92,8 +103,8 @@ public class UserToken {
             return this;
         }
 
-        public UserTokenBuilder withIdUser(int idUser) {
-            this.idUser = idUser;
+        public UserTokenBuilder withUser(UserInfo user) {
+            this.user = user;
             return this;
         }
 
@@ -104,9 +115,9 @@ public class UserToken {
 
         public UserToken build() {
             UserToken userToken = new UserToken();
-            userToken.token = this.token;
-            userToken.id = this.id;
-            userToken.idUser = this.idUser;
+            userToken.setId(id);
+            userToken.setUser(user);
+            userToken.setToken(token);
             return userToken;
         }
     }

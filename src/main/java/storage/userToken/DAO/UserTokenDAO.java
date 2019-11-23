@@ -1,4 +1,6 @@
-package storage.userToken;
+package storage.userToken.DAO;
+
+import storage.userToken.UserToken;
 
 /**
  * Интерфейс сущности UserToken

@@ -1,15 +1,43 @@
 package storage.userInfo.DAO;
 
-import org.apache.log4j.Logger;
-import storage.hotel.DAO.HotelHibernatePostgreSQL;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import storage.ConnectionHibernate;
 import storage.userInfo.UserInfo;
+import storage.userPass.UserPass;
+import storage.userToken.UserToken;
+
+import java.util.UUID;
 
 public class UserInfoHibernatePostgreSQL implements UserInfoDAO {
-    private static final Logger logger = Logger.getLogger(HotelHibernatePostgreSQL.class);
-
     @Override
-    public boolean addUserInfo(UserInfo userInfo) {
-        return false;
+    public boolean addUserInfo(UserInfo userInfo, UserPass userPass) {
+        SessionFactory sessionFactory = ConnectionHibernate.getConnection();
+        Session session = sessionFactory.openSession();
+
+        try{
+            session.beginTransaction();
+
+            session.save(userInfo);
+
+            userPass.setUser(userInfo);
+            session.save(userPass);
+
+            UserToken userToken = UserToken.UserTokenBuilder.anUserToken()
+                    .withUser(userInfo)
+                    .withToken(UUID.randomUUID().toString())
+                    .build();
+            session.save(userToken);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        }
+        catch (Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     @Override

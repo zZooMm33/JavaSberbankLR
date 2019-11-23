@@ -1,4 +1,6 @@
-package storage.userPass;
+package storage.userPass.DAO;
+
+import storage.userPass.UserPass;
 
 public class UserPassJDBCPostgreSQL implements UserPassDAO {
     @Override

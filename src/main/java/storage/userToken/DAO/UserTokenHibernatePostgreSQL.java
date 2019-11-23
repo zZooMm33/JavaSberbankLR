@@ -1,6 +1,8 @@
-package storage.userToken;
+package storage.userToken.DAO;
 
-public class UserTokenJDBCPostgreSQL implements UserTokenDAO {
+import storage.userToken.UserToken;
+
+public class UserTokenHibernatePostgreSQL implements UserTokenDAO {
     @Override
     public boolean addUserToken(UserToken userToken) {
         return false;

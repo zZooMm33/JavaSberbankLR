@@ -15,8 +15,6 @@ import java.util.Set;
 
 public class HotelHibernatePostgreSQL implements HotelDAO {
 
-    private static final Logger logger = Logger.getLogger(HotelHibernatePostgreSQL.class);
-
     private static final String REQUEST_GET_ALL_HOTELS = "select H.id, H.name, H.country, H.city, H.website, coalesce(HW.avg, 0) as averageRating from \n" +
             "(SELECT ID, NAME, COUNTRY, CITY, WEBSITE FROM hotel) H \n" +
             "left outer join \n" +
@@ -49,13 +47,11 @@ public class HotelHibernatePostgreSQL implements HotelDAO {
             }
 
             session.getTransaction().commit();
-
-            logger.info("Request completed successfully.");
+            session.close();
         }
         catch (Exception e){
             session.getTransaction().rollback();
             e.printStackTrace();
-            logger.error(e);
         }
 
         return hotels;
@@ -80,13 +76,11 @@ public class HotelHibernatePostgreSQL implements HotelDAO {
             hotel = (Hotel) criteria.list().get(0);
 
             session.getTransaction().commit();
-
-            logger.info("Request completed successfully.");
+            session.close();
         }
         catch (Exception e){
             session.getTransaction().rollback();
             e.printStackTrace();
-            logger.error(e);
         }
 
         return hotel;

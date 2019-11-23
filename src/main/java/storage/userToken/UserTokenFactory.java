@@ -1,5 +1,8 @@
 package storage.userToken;
 
+import storage.userToken.DAO.UserTokenDAO;
+import storage.userToken.DAO.UserTokenHibernatePostgreSQL;
+import storage.userToken.DAO.UserTokenJDBCPostgreSQL;
 import utils.PropReader;
 
 /**
@@ -15,6 +18,7 @@ public class UserTokenFactory {
         String storageType = PropReader.getVal("storageType");
 
         if (storageType.equals("jdbcPostgreSQL")) return new UserTokenJDBCPostgreSQL();
+        else if (storageType.equals("hibernatePostgreSQL")) return new UserTokenHibernatePostgreSQL();
         else return null;
     }
 }

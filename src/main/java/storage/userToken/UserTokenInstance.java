@@ -1,5 +1,7 @@
 package storage.userToken;
 
+import storage.userToken.DAO.UserTokenDAO;
+
 /**
  * Синглтон для работы с UserToken
  */
