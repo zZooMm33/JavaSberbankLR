@@ -1,12 +1,12 @@
 package controllers;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import javax.servlet.http.HttpServletRequestWrapper;
+import java.io.*;
 
 public class RequestFilter implements Filter {
 
@@ -20,24 +20,85 @@ public class RequestFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
+        ResettableStreamHttpServletRequest wrappedRequest = new ResettableStreamHttpServletRequest(
+                (HttpServletRequest) request);
+        String body = IOUtils.toString(wrappedRequest.getReader());
 
-        RequestWrapper requestWrapper = new RequestWrapper((HttpServletRequest) request);
+        LOGGER.info("Request"
+                +"\nResource: " + wrappedRequest.getRequestURI()
+                +"\nQuery: " + wrappedRequest.getQueryString()
+                +"\nBody: " + body
+                + "\n");
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(requestWrapper.getInputStream()));
-        String body = br.readLine();
-        LOGGER.info("\nUrl: " + requestWrapper.getRemoteAddr()
-                +":" + requestWrapper.getRemoteAddr()
-                +"\nResource: " + ((HttpServletRequest) requestWrapper).getRequestURI()
-                +"\nParameterMap: " + requestWrapper.getParameterMap()
-                +"\nBody: " + body);
-        br.close();
-
-        chain.doFilter(requestWrapper, response);
-
+        wrappedRequest.resetInputStream();
+        chain.doFilter(wrappedRequest, response);
     }
 
     @Override
     public void destroy() {
 
     }
+
+    private static class ResettableStreamHttpServletRequest extends
+            HttpServletRequestWrapper {
+
+        private byte[] rawData;
+        private HttpServletRequest request;
+        private ResettableServletInputStream servletStream;
+
+        public ResettableStreamHttpServletRequest(HttpServletRequest request) {
+            super(request);
+            this.request = request;
+            this.servletStream = new ResettableServletInputStream();
+        }
+
+
+        public void resetInputStream() {
+            servletStream.stream = new ByteArrayInputStream(rawData);
+        }
+
+        @Override
+        public ServletInputStream getInputStream() throws IOException {
+            if (rawData == null) {
+                rawData = IOUtils.toByteArray(this.request.getReader());
+                servletStream.stream = new ByteArrayInputStream(rawData);
+            }
+            return servletStream;
+        }
+
+        @Override
+        public BufferedReader getReader() throws IOException {
+            if (rawData == null) {
+                rawData = IOUtils.toByteArray(this.request.getReader());
+                servletStream.stream = new ByteArrayInputStream(rawData);
+            }
+            return new BufferedReader(new InputStreamReader(servletStream));
+        }
+
+        private class ResettableServletInputStream extends ServletInputStream {
+
+            private InputStream stream;
+
+            @Override
+            public int read() throws IOException {
+                return stream.read();
+            }
+
+            @Override
+            public boolean isFinished() {
+                return false;
+            }
+
+            @Override
+            public boolean isReady() {
+                return false;
+            }
+
+            @Override
+            public void setReadListener(ReadListener readListener) {
+
+            }
+        }
+    }
+
 }

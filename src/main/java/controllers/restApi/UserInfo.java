@@ -1,8 +1,10 @@
 package controllers.restApi;
 
+import org.apache.commons.io.IOUtils;
 import storage.userInfo.UserInfoInstance;
 import storage.userPass.UserPass;
 import utils.Encode;
+import utils.SplitQuery;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 @WebServlet(urlPatterns = "/restApi/userInfo")
 public class UserInfo extends HttpServlet {
@@ -33,17 +37,21 @@ public class UserInfo extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
+        String body = IOUtils.toString(req.getReader());
+        Map<String, List<String>> map = SplitQuery.split(body);
+
+
         try{
             storage.userInfo.UserInfo userInfo = storage.userInfo.UserInfo.UserInfoBuilder.anUserInfo()
-                    .withMail(req.getParameter("mail"))
-                    .withFirstName(req.getParameter("first_name"))
-                    .withLastName(req.getParameter("second_name"))
-                    .withSex(req.getParameter("sex"))
-                    .withDateOfBirth(req.getParameter("date"))
+                    .withMail(map.get("mail").get(0))
+                    .withFirstName(map.get("first_name").get(0))
+                    .withLastName(map.get("second_name").get(0))
+                    .withSex(map.get("sex").get(0))
+                    .withDateOfBirth(map.get("date").get(0))
                     .build();
 
             UserPass userPass = UserPass.UserPassBuilder.anUserPass()
-                    .withPass(Encode.getSecurePassword(req.getParameter("pass")))
+                    .withPass(Encode.getSecurePassword(map.get("pass").get(0)))
                     .build();
 
             if (UserInfoInstance.getUserInfoInstance().addUserInfo(userInfo, userPass)){

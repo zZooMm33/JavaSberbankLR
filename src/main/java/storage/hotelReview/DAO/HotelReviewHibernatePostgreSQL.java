@@ -46,6 +46,7 @@ public class HotelReviewHibernatePostgreSQL implements HotelReviewDAO {
                     hotelReview.setUserAgeOfVisit(Integer.toString(userAgeOfVisit));
                 } catch (ParseException e) {
                     e.printStackTrace();
+                    hotelReview.setUserAgeOfVisit(null);
                 }
             }
 

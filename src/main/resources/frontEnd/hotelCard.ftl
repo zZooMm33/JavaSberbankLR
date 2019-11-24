@@ -29,8 +29,9 @@
 
                 <#list hotel.getHotelReview() as comment>
                     <div class="divHotel">
-                        <p>DateOfVisit: ${comment.getDateOfVisit()}</p>
-                        <p>UserAgeOfVisit: ${comment.getUserAgeOfVisit()}</p>
+                        <#if comment.getDateOfVisit()?has_content> <p>DateOfVisit: ${comment.getDateOfVisit()}</p> <#else> <p>DateOfVisit: unknown</p> </#if>
+                        <#if comment.getUserAgeOfVisit()?has_content> <p>UserAgeOfVisit: ${comment.getUserAgeOfVisit()}</p> <#else> <p>UserAgeOfVisit: unknown</p> </#if>
+
                         <p>Rating: ${comment.getRating()}</p>
                         <p>Description: ${comment.getDescription()}</p>
                     </div>

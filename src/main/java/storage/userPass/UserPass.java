@@ -21,7 +21,7 @@ public class UserPass {
     /**
      * Пользователь пользователя
      */
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade=CascadeType.REMOVE)
     private UserInfo user;
     /**
      * Пароль пользователя
