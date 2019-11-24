@@ -21,7 +21,6 @@ public class UserInfo extends HttpServlet {
     private static final String SUCCESSFULLY = "{\"successfully\":\"Registration completed successfully\"}";
     private static final String ARG_ERROR = "{\"error\":\"No arguments\"}";
     private static final String ADD_ERROR = "{\"error\":\"Unknown error, try again later\"}";
-    private static final String USER_ERROR = "{\"error\":\"User not found\"}";
     private static final String MAIL_ERROR = "{\"error\":\"Mail already used\"}";
 
     @Override
@@ -40,7 +39,6 @@ public class UserInfo extends HttpServlet {
         String body = IOUtils.toString(req.getReader());
         Map<String, List<String>> map = SplitQuery.split(body);
 
-
         try{
             storage.userInfo.UserInfo userInfo = storage.userInfo.UserInfo.UserInfoBuilder.anUserInfo()
                     .withMail(map.get("mail").get(0))
@@ -49,6 +47,12 @@ public class UserInfo extends HttpServlet {
                     .withSex(map.get("sex").get(0))
                     .withDateOfBirth(map.get("date").get(0))
                     .build();
+
+            if (UserInfoInstance.getUserInfoInstance().getUserInfoByMail(userInfo.getMail()) != null){
+                resp.setStatus(300);
+                resp.getWriter().print(MAIL_ERROR);
+                return;
+            }
 
             UserPass userPass = UserPass.UserPassBuilder.anUserPass()
                     .withPass(Encode.getSecurePassword(map.get("pass").get(0)))

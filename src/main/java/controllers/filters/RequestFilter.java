@@ -1,4 +1,4 @@
-package controllers;
+package controllers.filters;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;

@@ -1,7 +1,9 @@
 package storage.userInfo.DAO;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import storage.ConnectionHibernate;
 import storage.userInfo.UserInfo;
 import storage.userPass.UserPass;
@@ -52,6 +54,25 @@ public class UserInfoHibernatePostgreSQL implements UserInfoDAO {
 
     @Override
     public UserInfo getUserInfoByMail(String mail) {
-        return null;
+        SessionFactory sessionFactory = ConnectionHibernate.getConnection();
+        Session session = sessionFactory.openSession();
+        UserInfo userInfo = null;
+        try{
+            session.beginTransaction();
+
+            Criteria criteria = session.createCriteria(UserInfo.class);
+            criteria.add(Restrictions.eq("mail", mail));
+
+            userInfo = (UserInfo) criteria.list().get(0);
+
+            session.getTransaction().commit();
+            session.close();
+            return userInfo;
+        }
+        catch (Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        }
     }
 }
