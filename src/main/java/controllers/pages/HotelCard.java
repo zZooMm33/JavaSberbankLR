@@ -41,7 +41,6 @@ public class HotelCard extends HttpServlet {
         if (req.getParameterMap().containsKey("id")) {
 
             int id = Integer.parseInt(req.getParameter("id"));
-            System.out.println(id);
             Hotel hotel = null;
 
             try {
