@@ -2,10 +2,12 @@ package controllers.filters;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import utils.PropReader;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 public class RequestFilter implements Filter {
@@ -22,6 +24,8 @@ public class RequestFilter implements Filter {
 
         ResettableStreamHttpServletRequest wrappedRequest = new ResettableStreamHttpServletRequest(
                 (HttpServletRequest) request);
+        HttpServletResponse servletResponse = (HttpServletResponse)response;
+
         String body = IOUtils.toString(wrappedRequest.getReader());
 
         LOGGER.info("Request"
@@ -31,7 +35,13 @@ public class RequestFilter implements Filter {
                 + "\n");
 
         wrappedRequest.resetInputStream();
-        chain.doFilter(wrappedRequest, response);
+
+        if (PropReader.getVal(PropReader.MAINTENANCE).equals("true")){
+            servletResponse.sendError(503);
+            return;
+        }
+        else chain.doFilter(wrappedRequest, response);
+
     }
 
     @Override
