@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>Registration</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <#include "css/main.ftl">
@@ -76,13 +76,12 @@
             data: "&mail="+ mail + "&pass="+ pass + "&first_name="+ firstName + "&second_name="+ secondName +"&sex="+sex+"&date="+date,
             success: function(data) {
                 alert(data.successfully);
-                window.location.replace("${webAddress}/index");
+                window.location.replace("${webAddress}/Profile");
             },
             error: function (jqXHR, exception) {
                 alert(jQuery.parseJSON(jqXHR.responseText).error);
             }
         });
-
     }
 </script>
 

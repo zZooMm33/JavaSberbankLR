@@ -2,6 +2,7 @@ package storage.userInfo.DAO;
 
 import storage.userInfo.UserInfo;
 import storage.userPass.UserPass;
+import storage.userToken.UserToken;
 
 /**
  * Интерфейс сущности UserInfo
@@ -15,7 +16,7 @@ public interface UserInfoDAO {
      * @param userPass  пароль пользователя
      * @return удалось добавить или нет
      */
-    public boolean addUserInfo(UserInfo userInfo, UserPass userPass);
+    public boolean addUserInfo(UserInfo userInfo, UserPass userPass, UserToken userToken);
 
     /**
      * Изменить пользователя
@@ -28,10 +29,10 @@ public interface UserInfoDAO {
     /**
      * Получить пользователя
      *
-     * @param id id пользователя
+     * @param token token пользователя
      * @return пользователь
      */
-    public UserInfo getUserInfoById(int id);
+    public UserInfo getUserInfoByToken(String token);
 
 
     /**

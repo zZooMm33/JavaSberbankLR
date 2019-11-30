@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import storage.hotel.Hotel;
 import utils.FreeMarker;
 import utils.Request;
+import utils.Session;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,6 +46,9 @@ public class Index extends HttpServlet {
         }
 
         freeMarker.putList(KEY_HOTEL_LIST, hotels);
+
+        String token = Session.getFromSession(req, Session.KEY_TOKEN_STRING);
+        freeMarker.putString(FreeMarker.KEY_TOKEN, token);
 
         resp.getWriter().println(freeMarker);
         resp.setContentType("text/html");

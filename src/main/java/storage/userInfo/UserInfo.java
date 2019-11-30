@@ -52,6 +52,12 @@ public class UserInfo {
     private String sex;
 
     /**
+     * Администратор
+     */
+    @Column(name = "admin")
+    private boolean admin;
+
+    /**
      * Комментраии пользователя
      */
     @Transient
@@ -165,6 +171,22 @@ public class UserInfo {
     }
 
     /**
+     * Является ли данный пользователь администратором
+     * @return true/false
+     */
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    /**
+     * Сделать пользователя администратором / убрать админку
+     * @param admin true/false
+     */
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+    /**
      * Получить комментарии данного пользователя
      * @return Комментарии
      */
@@ -190,6 +212,7 @@ public class UserInfo {
         private String mail;
         private String dateOfBirth;
         private String sex;
+        private boolean admin;
         private Set<HotelReview> hotelReview = new HashSet<HotelReview>();
 
         private UserInfoBuilder() {
@@ -229,6 +252,11 @@ public class UserInfo {
             return this;
         }
 
+        public UserInfoBuilder withAdmin(boolean admin) {
+            this.admin = admin;
+            return this;
+        }
+
         public UserInfoBuilder withHotelReview(Set<HotelReview> hotelReview) {
             this.hotelReview = hotelReview;
             return this;
@@ -242,7 +270,8 @@ public class UserInfo {
             userInfo.setMail(mail);
             userInfo.setDateOfBirth(dateOfBirth);
             userInfo.setSex(sex);
-            userInfo.hotelReview = this.hotelReview;
+            userInfo.setAdmin(admin);
+            userInfo.setHotelReview(hotelReview);
             return userInfo;
         }
     }

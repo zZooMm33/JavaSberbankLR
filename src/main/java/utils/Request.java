@@ -6,7 +6,15 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Метод для отправки различных типов запросов в restApi
+ */
 public class Request {
+    /**
+     * Отправка get запроса по url
+     * @param requestUrl url
+     * @return json строка
+     */
     public static String sendGetRequest(String requestUrl) {
         try {
             URL url = new URL(requestUrl);
@@ -33,6 +41,11 @@ public class Request {
 
     }
 
+    /**
+     * Отправка post запроса по url
+     * @param requestUrl url
+     * @return json строка
+     */
     public static String sendPostRequest(String requestUrl) {
         try {
             URL url = new URL(requestUrl);
@@ -59,6 +72,12 @@ public class Request {
         }
 
     }
+
+    /**
+     * Отправка put запроса по url
+     * @param requestUrl url
+     * @return json строка
+     */
     public static String sendPutRequest(String requestUrl) {
         try {
             URL url = new URL(requestUrl);
@@ -86,6 +105,11 @@ public class Request {
 
     }
 
+    /**
+     * Отправка delete запроса по url
+     * @param requestUrl url
+     * @return json строка
+     */
     public static String sendDeleteRequest(String requestUrl) {
         try {
             URL url = new URL(requestUrl);

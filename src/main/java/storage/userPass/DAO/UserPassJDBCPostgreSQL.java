@@ -14,7 +14,7 @@ public class UserPassJDBCPostgreSQL implements UserPassDAO {
     }
 
     @Override
-    public String getPassByUserId(int id) {
+    public UserPass getUserPassByUserId(int userId) {
         return null;
     }
 }

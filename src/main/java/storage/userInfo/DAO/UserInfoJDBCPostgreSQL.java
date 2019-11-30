@@ -4,8 +4,9 @@ import storage.userInfo.UserInfo;
 import storage.userPass.UserPass;
 
 public class UserInfoJDBCPostgreSQL implements UserInfoDAO {
+
     @Override
-    public boolean addUserInfo(UserInfo userInfo, UserPass userPass) {
+    public boolean addUserInfo(UserInfo userInfo, UserPass userPass, storage.userToken.UserToken userToken) {
         return false;
     }
 
@@ -15,7 +16,7 @@ public class UserInfoJDBCPostgreSQL implements UserInfoDAO {
     }
 
     @Override
-    public UserInfo getUserInfoById(int id) {
+    public UserInfo getUserInfoByToken(String token) {
         return null;
     }
 

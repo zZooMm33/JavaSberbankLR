@@ -26,8 +26,8 @@ public interface UserPassDAO {
     /**
      * Получить пароль
      *
-     * @param id id пользователя
-     * @return пароль
+     * @param userId id пользователя
+     * @return UserPass
      */
-    public String getPassByUserId(int id);
+    public UserPass getUserPassByUserId(int userId);
 }

@@ -21,7 +21,7 @@ public class UserToken {
     /**
      * Пользователь
      */
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne()
     private UserInfo user;
     /**
      * token пользователя

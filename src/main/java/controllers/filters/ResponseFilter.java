@@ -9,15 +9,34 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 
+/**
+ * Фильтр для исходящих запросов
+ */
 public class ResponseFilter implements Filter {
 
+    /**
+     * Логгер с помощью которого будем записывать логи
+     */
     private static final Logger LOGGER = Logger.getLogger(ResponseFilter.class);
 
+    /**
+     * Метод который будет вызываться до метода doFilter
+     * @param filterConfig
+     * @throws ServletException
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
 
+    /**
+     * Основной метод фильтра
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
@@ -34,11 +53,17 @@ public class ResponseFilter implements Filter {
                 + "\n");
     }
 
+    /**
+     * Метод будет вызываться после того как отработает метод doFilter
+     */
     @Override
     public void destroy() {
 
     }
 
+    /**
+     * Класс для прочтения статуса и тела запроса
+     */
     public class CopyPrintWriter extends PrintWriter {
 
         private StringBuilder copy = new StringBuilder();

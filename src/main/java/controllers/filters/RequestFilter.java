@@ -10,15 +10,34 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
+/**
+ * Фильтр для запросов
+ */
 public class RequestFilter implements Filter {
 
+    /**
+     * Логгер с помощью которого будем записывать логи
+     */
     private static final Logger LOGGER = Logger.getLogger(RequestFilter.class);
 
+    /**
+     * Метод который будет вызываться до метода doFilter
+     * @param filterConfig
+     * @throws ServletException
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
 
+    /**
+     * Основной метод фильтра
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
@@ -29,7 +48,7 @@ public class RequestFilter implements Filter {
         String body = IOUtils.toString(wrappedRequest.getReader());
 
         LOGGER.info("Request"
-                +"\nResource: " + wrappedRequest.getRequestURI()
+                +"\nURL: " + wrappedRequest.getScheme() + "://" + wrappedRequest.getServerName() + ":" + wrappedRequest.getServerPort() + wrappedRequest.getRequestURI()
                 +"\nQuery: " + wrappedRequest.getQueryString()
                 +"\nBody: " + body
                 + "\n");
@@ -37,18 +56,24 @@ public class RequestFilter implements Filter {
         wrappedRequest.resetInputStream();
 
         if (PropReader.getVal(PropReader.MAINTENANCE).equals("true")){
-            servletResponse.sendError(503);
+            servletResponse.sendError(503); // отправляем код для режима "техобслуживания"
             return;
         }
         else chain.doFilter(wrappedRequest, response);
 
     }
 
+    /**
+     * Метод будет вызываться после того как отработает метод doFilter
+     */
     @Override
     public void destroy() {
 
     }
 
+    /**
+     * Класс который нужен для того что бы прочитать тело запроса несколько раз
+     */
     private static class ResettableStreamHttpServletRequest extends
             HttpServletRequestWrapper {
 

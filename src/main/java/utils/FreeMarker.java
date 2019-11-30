@@ -27,8 +27,9 @@ public class FreeMarker {
      */
     public static final String FILE_INDEX = "index.ftl";
     public static final String FILE_HOTEL_CARD = "hotelCard.ftl";
-    public static final String FILE_PROFILE = "";
+    public static final String FILE_PROFILE = "userProfile.ftl";
     public static final String FILE_REG = "registration.ftl";
+    public static final String FILE_LOGIN = "login.ftl";
 
     /**
      * Страницы сайта для администратора
@@ -46,6 +47,7 @@ public class FreeMarker {
      */
     public static final String KEY_WEB_ADDRESS = "webAddress";
     public static final String KEY_ERROR = "errorText";
+    public static final String KEY_TOKEN = "token";
 
     /**
      * Конструктор

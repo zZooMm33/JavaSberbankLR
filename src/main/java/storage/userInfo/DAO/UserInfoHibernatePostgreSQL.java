@@ -9,11 +9,9 @@ import storage.userInfo.UserInfo;
 import storage.userPass.UserPass;
 import storage.userToken.UserToken;
 
-import java.util.UUID;
-
 public class UserInfoHibernatePostgreSQL implements UserInfoDAO {
     @Override
-    public boolean addUserInfo(UserInfo userInfo, UserPass userPass) {
+    public boolean addUserInfo(UserInfo userInfo, UserPass userPass, UserToken userToken) {
         SessionFactory sessionFactory = ConnectionHibernate.getConnection();
         Session session = sessionFactory.openSession();
 
@@ -25,11 +23,9 @@ public class UserInfoHibernatePostgreSQL implements UserInfoDAO {
             userPass.setUser(userInfo);
             session.save(userPass);
 
-            UserToken userToken = UserToken.UserTokenBuilder.anUserToken()
-                    .withUser(userInfo)
-                    .withToken(UUID.randomUUID().toString())
-                    .build();
+            userToken.setUser(userInfo);
             session.save(userToken);
+
             session.getTransaction().commit();
             session.close();
             return true;
@@ -44,11 +40,37 @@ public class UserInfoHibernatePostgreSQL implements UserInfoDAO {
 
     @Override
     public boolean changeUserInfo(UserInfo userInfo) {
-        return false;
+        SessionFactory sessionFactory = ConnectionHibernate.getConnection();
+        Session session = sessionFactory.openSession();
+        UserInfo oldUserInfo = null;
+        try{
+            session.beginTransaction();
+
+            Criteria criteria = session.createCriteria(UserInfo.class);
+            criteria.add(Restrictions.eq("mail", userInfo.getMail()));
+
+            oldUserInfo = (UserInfo) criteria.list().get(0);
+            oldUserInfo.setMail(userInfo.getMail());
+            oldUserInfo.setFirstName(userInfo.getFirstName());
+            oldUserInfo.setLastName(userInfo.getLastName());
+            oldUserInfo.setDateOfBirth(userInfo.getDateOfBirth());
+            oldUserInfo.setSex(userInfo.getSex());
+
+            session.update(oldUserInfo);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        }
+        catch (Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public UserInfo getUserInfoById(int id) {
+    public UserInfo getUserInfoByToken(String token) {
+
         return null;
     }
 

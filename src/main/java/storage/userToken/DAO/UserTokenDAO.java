@@ -1,5 +1,6 @@
 package storage.userToken.DAO;
 
+import storage.userInfo.UserInfo;
 import storage.userToken.UserToken;
 
 /**
@@ -29,4 +30,18 @@ public interface UserTokenDAO {
      * @return удалось или не удалось
      */
     public boolean changeUserToken(UserToken userToken);
+
+    /**
+     * Получить токен по id
+     * @param idUser id пользователя
+     * @return UserToken
+     */
+    public boolean deleteUserTokenByUserId(int idUser);
+
+    /**
+     * Получить пользователя по токену
+     * @param token token
+     * @return UserInfo
+     */
+    public UserInfo getUserInfoByToken(String token);
 }
