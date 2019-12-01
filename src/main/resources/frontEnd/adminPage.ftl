@@ -15,6 +15,7 @@
     <div class="row">
         <div class="col-12">
             <h1 class="mt-4 center">Admin page</h1>
+            <button type="button" class="btn btn-danger mt-2" onclick="maintenance();">Enable maintenance mode</button>
             <#if hotels?has_content>
                 <div class="row justify-content-center">
                     <#list hotels as hotel>
@@ -83,6 +84,21 @@
             data: "&name="+ name + "&website="+ website + "&country="+ country+ "&city="+ city+ "&idHotel="+ idHotel + "&description="+ description + "&star="+ star,
             success: function(data) {
                 alert(data.successfully);
+            },
+            error: function (jqXHR, exception) {
+                alert(jQuery.parseJSON(jqXHR.responseText).error);
+            }
+        });
+    }
+
+    function maintenance() {
+        $.ajax({
+            type: "PUT",
+            url: "${webAddress}/restApi/config",
+            data: "&maintenance=true",
+            success: function(data) {
+                alert(data.successfully);
+                window.location.replace("${webAddress}/AdminPage");
             },
             error: function (jqXHR, exception) {
                 alert(jQuery.parseJSON(jqXHR.responseText).error);

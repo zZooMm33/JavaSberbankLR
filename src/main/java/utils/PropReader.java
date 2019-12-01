@@ -1,5 +1,6 @@
 package utils;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -40,11 +41,6 @@ public class PropReader {
     public static final String MAINTENANCE = "maintenance";
 
     /**
-     * Поле log в config
-     */
-    public static final String LOG = "log";
-
-    /**
      * Вернет строку по ключу из config.properties
      *
      * @param key Ключ в config.properties
@@ -68,5 +64,27 @@ public class PropReader {
         }
 
         return null;
+    }
+
+    /**
+     * Сохранить настройки в config.properties
+     * @param key ключ
+     * @param value новое значение
+     * @return удалось сохранить или нет
+     */
+    public static boolean setVal(String key, String value){
+
+        try {
+            FileOutputStream out = new FileOutputStream("src/main/resources/"+PROP_FILE_NAME);
+            Properties props = new Properties();
+            props.setProperty(key, value);
+            props.store(out, null);
+            out.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 }
