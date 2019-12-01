@@ -98,7 +98,6 @@
             data: "&maintenance=true",
             success: function(data) {
                 alert(data.successfully);
-                window.location.replace("${webAddress}/AdminPage");
             },
             error: function (jqXHR, exception) {
                 alert(jQuery.parseJSON(jqXHR.responseText).error);

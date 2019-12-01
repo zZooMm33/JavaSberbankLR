@@ -75,9 +75,15 @@ public class PropReader {
     public static boolean setVal(String key, String value){
 
         try {
-            FileOutputStream out = new FileOutputStream("src/main/resources/"+PROP_FILE_NAME);
             Properties props = new Properties();
+
+            InputStream inputStream = PropReader.class.getClassLoader().getResourceAsStream(PROP_FILE_NAME);
+            props.load(inputStream);
+            inputStream.close();
+
             props.setProperty(key, value);
+
+            FileOutputStream out = new FileOutputStream("src/main/resources/"+PROP_FILE_NAME);
             props.store(out, null);
             out.close();
             return true;
