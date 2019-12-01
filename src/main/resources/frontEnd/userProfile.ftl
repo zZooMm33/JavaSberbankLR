@@ -151,6 +151,21 @@
             }
         });
     }
+
+    function deleteComment(idComment) {
+        $.ajax({
+            type: "DELETE",
+            url: "${webAddress}/restApi/hotelReviews",
+            data: "&idComment="+ idComment,
+            success: function(data) {
+                alert(data.successfully);
+                window.location.replace("${webAddress}/Profile");
+            },
+            error: function (jqXHR, exception) {
+                alert(jQuery.parseJSON(jqXHR.responseText).error);
+            }
+        });
+    }
 </script>
 
 </html>

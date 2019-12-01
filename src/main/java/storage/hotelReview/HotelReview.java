@@ -22,13 +22,13 @@ public class HotelReview {
     /**
      * id пользователя (сущность)
      */
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne()
     private UserInfo user;
 
     /**
      * id отеля (сущность)
      */
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne()
     private Hotel hotel;
 
     /**

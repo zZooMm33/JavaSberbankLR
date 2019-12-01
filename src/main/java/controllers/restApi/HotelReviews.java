@@ -93,6 +93,22 @@ public class HotelReviews extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
-        super.doDelete(req, resp);
+        String body = IOUtils.toString(req.getReader());
+        Map<String, List<String>> map = SplitQuery.split(body);
+
+        try{
+            if (HotelReviewInstance.getHotelReviewInstance().deleteHotelReviewById(Integer.parseInt(map.get("idComment").get(0)))){
+                resp.getWriter().print(SUCCESSFULLY);
+            }
+            else {
+                resp.setStatus(300);
+                resp.getWriter().print(UNKNOWN_ERROR);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            resp.setStatus(300);
+            resp.getWriter().print(ARG_ERROR);
+        }
     }
 }

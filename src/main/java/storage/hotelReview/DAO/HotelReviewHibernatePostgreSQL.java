@@ -100,7 +100,29 @@ public class HotelReviewHibernatePostgreSQL implements HotelReviewDAO {
 
     @Override
     public boolean deleteHotelReviewById(int id) {
-        return false;
+        SessionFactory sessionFactory = ConnectionHibernate.getConnection();
+        Session session = sessionFactory.openSession();
+        HotelReview hotelReview = null;
+        try{
+            session.beginTransaction();
+
+            Criteria criteria = session.createCriteria(HotelReview.class);
+            criteria.createAlias("hotel", "hotel");
+            criteria.createAlias("user", "user");
+            criteria.add(Restrictions.idEq(id));
+
+            hotelReview = (HotelReview) criteria.list().get(0);
+
+            session.delete(hotelReview);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        }
+        catch (Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
