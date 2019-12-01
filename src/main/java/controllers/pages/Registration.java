@@ -1,5 +1,7 @@
 package controllers.pages;
 
+import storage.userInfo.UserInfo;
+import storage.userToken.UserTokenInstance;
 import utils.FreeMarker;
 import utils.Session;
 
@@ -22,6 +24,14 @@ public class Registration extends HttpServlet {
 
         String token = Session.getFromSession(req, Session.KEY_TOKEN_STRING);
         freeMarker.putString(FreeMarker.KEY_TOKEN, token);
+
+        UserInfo userInfo = UserTokenInstance.getUserTokenInstance().getUserInfoByToken(token);
+
+        if(userInfo != null) {
+            resp.getWriter().println(FreeMarker.generateErrorPage("Error", webAddress, this));
+            resp.setContentType("text/html");
+            return;
+        }
 
         resp.getWriter().println(freeMarker);
         resp.setContentType("text/html");

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import storage.hotel.Hotel;
 import storage.hotelReview.HotelReview;
 import storage.userInfo.UserInfo;
+import storage.userToken.UserTokenInstance;
 import utils.FreeMarker;
 import utils.Request;
 import utils.Session;
@@ -37,6 +38,16 @@ public class UserProfile extends HttpServlet {
         String token = Session.getFromSession(req, Session.KEY_TOKEN_STRING);
         UserInfo userInfo = null;
         Set<Hotel> hotels = null;
+
+        userInfo = UserTokenInstance.getUserTokenInstance().getUserInfoByToken(token);
+
+        if(userInfo == null) {
+            resp.getWriter().println(FreeMarker.generateErrorPage("Error", webAddress, this));
+            resp.setContentType("text/html");
+            return;
+        }
+
+        userInfo = null;
 
         try {
             String commJson= Request.sendGetRequest(webAddress+"/restApi/hotels");
