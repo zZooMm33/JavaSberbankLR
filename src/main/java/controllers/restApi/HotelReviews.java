@@ -6,6 +6,7 @@ import org.apache.commons.io.IOUtils;
 import storage.hotel.HotelInstance;
 import storage.hotelReview.HotelReview;
 import storage.hotelReview.HotelReviewInstance;
+import storage.userInfo.UserInfoInstance;
 import utils.SplitQuery;
 
 import javax.servlet.ServletException;
@@ -53,7 +54,31 @@ public class HotelReviews extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
-        super.doPost(req, resp);
+        String body = IOUtils.toString(req.getReader());
+        Map<String, List<String>> map = SplitQuery.split(body);
+
+        try{
+            storage.hotelReview.HotelReview hotelReview = HotelReview.HotelReviewBuilder.aHotelReview()
+                    .withDateOfVisit(map.get("dateOfVisit").get(0))
+                    .withRating(Integer.parseInt(map.get("rating").get(0)))
+                    .withDescription(map.get("description").get(0))
+                    .withHotel(HotelInstance.getHotelInstance().getHotelById(Integer.parseInt(map.get("hotelId").get(0))))
+                    .withUser(UserInfoInstance.getUserInfoInstance().getUserInfoByMail(map.get("mail").get(0)))
+                    .build();
+
+            if (HotelReviewInstance.getHotelReviewInstance().addHotelReviewByUserId(hotelReview)){
+                resp.getWriter().print(SUCCESSFULLY);
+            }
+            else {
+                resp.setStatus(300);
+                resp.getWriter().print(UNKNOWN_ERROR);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            resp.setStatus(300);
+            resp.getWriter().print(ARG_ERROR);
+        }
     }
 
     @Override

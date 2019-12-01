@@ -57,7 +57,7 @@ public class RequestFilter implements Filter {
 
         if (PropReader.getVal(PropReader.MAINTENANCE).equals("true")){
             servletResponse.sendError(503); // отправляем код для режима "техобслуживания"
-            return;
+            //response.getWriter().println(FreeMarker.generateErrorPage("Error in request", "", this));
         }
         else chain.doFilter(wrappedRequest, response);
 

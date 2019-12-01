@@ -69,6 +69,29 @@
                 </#if>
             </form>
 
+
+            <p class="mt-4"><b>Add new comment</b></p>
+            <div class="divHotel">
+                <label for="newHotel">Hotel name</label>
+                <select id="newHotel" class="custom-select">
+                    <#list hotels as hot>
+                        <option value="${hot.getId()}">${hot.getName()}</option>
+                    </#list>
+                </select>
+
+                <label for="newDateOfVisit">DateOfVisit</label>
+                <input type="date" class="form-control" id="newDateOfVisit">
+
+                <label for="newRating">Rating</label>
+                <input type="text" class="form-control" id="newRating">
+
+                <label for="newDescription">Description</label>
+                <input type="text" class="form-control" id="newDescription">
+
+                <button type="button" class="btn btn-primary mt-2" id="buttonAddComment" onclick="addComment();">Add comment</button>
+            </div>
+
+
             <p class="mt-4"><b>Comments:</b></p>
             <#if userInfo??>
                 <#if userInfo.getHotelReview()?has_content>
@@ -157,6 +180,27 @@
             type: "DELETE",
             url: "${webAddress}/restApi/hotelReviews",
             data: "&idComment="+ idComment,
+            success: function(data) {
+                alert(data.successfully);
+                window.location.replace("${webAddress}/Profile");
+            },
+            error: function (jqXHR, exception) {
+                alert(jQuery.parseJSON(jqXHR.responseText).error);
+            }
+        });
+    }
+
+    function addComment() {
+        var mail = document.getElementById("mailInput").value,
+            dateOfVisit= document.getElementById("newDateOfVisit").value,
+            rating = document.getElementById("newRating").value,
+            description = document.getElementById("newDescription").value,
+            hotelId = document.getElementById("newHotel").value;
+
+        $.ajax({
+            type: "POST",
+            url: "${webAddress}/restApi/hotelReviews",
+            data: "&dateOfVisit="+ dateOfVisit + "&rating="+ rating + "&description="+ description+ "&hotelId="+ hotelId+ "&mail="+ mail,
             success: function(data) {
                 alert(data.successfully);
                 window.location.replace("${webAddress}/Profile");

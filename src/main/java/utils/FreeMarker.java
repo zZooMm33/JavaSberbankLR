@@ -34,7 +34,7 @@ public class FreeMarker {
     /**
      * Страницы сайта для администратора
      */
-    public static final String FILE_ADMIN = "admin.ftl";
+    public static final String FILE_ADMIN = "adminPage.ftl";
 
     /**
      * Страницы с ошибками

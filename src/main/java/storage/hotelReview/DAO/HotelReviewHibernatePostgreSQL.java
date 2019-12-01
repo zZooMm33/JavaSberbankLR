@@ -159,6 +159,23 @@ public class HotelReviewHibernatePostgreSQL implements HotelReviewDAO {
 
     @Override
     public boolean addHotelReviewByUserId(HotelReview hotelReview) {
-        return false;
+        SessionFactory sessionFactory = ConnectionHibernate.getConnection();
+        Session session = sessionFactory.openSession();
+        try{
+            session.beginTransaction();
+
+            Criteria criteria = session.createCriteria(HotelReview.class);
+
+            session.save(hotelReview);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        }
+        catch (Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        }
+
     }
 }
