@@ -57,16 +57,41 @@
                     </select>
                 </div>
 
-                <button type="button" class="btn btn-primary" onclick="change();" id="buttonChange">Change</button>
+                <button type="button" class="btn btn-primary" onclick="changeUserInfo();" id="buttonChangeUserInfo">Change</button>
 
                 <#if userInfo??>
                     <#if userInfo.isAdmin()??>
                         <#if userInfo.isAdmin()>
-                            <a href="${webAddress}/AdminPage"><button type="button" class="btn btn-danger">Admin page</button></a>
+                            <br>
+                            <a href="${webAddress}/AdminPage"><button type="button" class="btn btn-danger mt-2">Admin page</button></a>
                         </#if>
                     </#if>
                 </#if>
             </form>
+
+            <p class="mt-4"><b>Comments:</b></p>
+            <#if userInfo??>
+                <#if userInfo.getHotelReview()?has_content>
+                    <#list userInfo.getHotelReview() as comment>
+                        <div class="divHotel">
+                            <label for="hotelName">Hotel name</label>
+                            <input type="text" class="form-control" id="hotelName${comment.getId()}" disabled value="${comment.getHotel().getName()}">
+
+                            <label for="dateOfVisit">DateOfVisit</label>
+                            <input type="date" class="form-control" id="dateOfVisit${comment.getId()}" placeholder="Enter visit date" <#if comment.getDateOfVisit()?has_content> value=${comment.getDateOfVisit()}</#if>>
+
+                            <label for="rating">Rating</label>
+                            <input type="text" class="form-control" id="rating${comment.getId()}" value=${comment.getRating()}>
+
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control" id="description${comment.getId()}" value="${comment.getDescription()}">
+
+                            <button type="button" class="btn btn-primary mt-2 buttonChangeComment" onclick="changeComment(${comment.getId()});" id=${"change" + comment.getId()}>Change</button>
+                            <button type="button" class="btn btn-primary mt-2 buttonDeleteComment" onclick="deleteComment(${comment.getId()});" id=${"delete" + comment.getId()}>Delete</button>
+                        </div>
+                    </#list>
+                </#if>
+            </#if>
         </div>
     </div>
 </div>
@@ -77,7 +102,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 <script>
-    function change() {
+    function changeUserInfo() {
         var mail = document.getElementById("mailInput").value,
             firstName= document.getElementById("firstName").value,
             secondName = document.getElementById("secondName").value,
@@ -90,6 +115,24 @@
             type: "PUT",
             url: "${webAddress}/restApi/userInfo",
             data: "&mail="+ mail + "&first_name="+ firstName + "&second_name="+ secondName +"&sex="+sex+"&date="+date,
+            success: function(data) {
+                alert(data.successfully);
+            },
+            error: function (jqXHR, exception) {
+                alert(jQuery.parseJSON(jqXHR.responseText).error);
+            }
+        });
+    }
+
+    function changeComment(idComment) {
+        var dateOfVisit= document.getElementById("dateOfVisit"+idComment).value,
+            rating = document.getElementById("rating"+idComment).value,
+            description = document.getElementById("description"+idComment).value;
+
+        $.ajax({
+            type: "PUT",
+            url: "${webAddress}/restApi/hotelReviews",
+            data: "&dateOfVisit="+ dateOfVisit + "&rating="+ rating + "&description="+ description+ "&idComment="+ idComment,
             success: function(data) {
                 alert(data.successfully);
             },

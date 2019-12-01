@@ -1,6 +1,8 @@
 package controllers.pages;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import storage.hotelReview.HotelReview;
 import storage.userInfo.UserInfo;
 import utils.FreeMarker;
 import utils.Request;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Set;
 
 @WebServlet(urlPatterns = "/Profile")
 public class UserProfile extends HttpServlet {
@@ -38,6 +41,17 @@ public class UserProfile extends HttpServlet {
         }
         catch (Exception e){
             e.printStackTrace();
+        }
+
+        if (userInfo != null){
+            try {
+                String commJson= Request.sendGetRequest(webAddress+"/restApi/hotelReviews?idUser=" + userInfo.getId());
+                ObjectMapper mapper = new ObjectMapper();
+                userInfo.setHotelReview(mapper.readValue(commJson, new TypeReference<Set<HotelReview>>(){}));
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
         freeMarker.putString(FreeMarker.KEY_TOKEN, token);

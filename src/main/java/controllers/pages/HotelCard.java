@@ -6,6 +6,7 @@ import storage.hotel.Hotel;
 import storage.hotelReview.HotelReview;
 import utils.FreeMarker;
 import utils.Request;
+import utils.Session;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +38,9 @@ public class HotelCard extends HttpServlet {
 
         String webAddress = "" + req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
         FreeMarker freeMarker = new FreeMarker(FreeMarker.FILE_HOTEL_CARD, webAddress, this);
+
+        String token = Session.getFromSession(req, Session.KEY_TOKEN_STRING);
+        freeMarker.putString(FreeMarker.KEY_TOKEN, token);
 
         if (req.getParameterMap().containsKey("id")) {
 
