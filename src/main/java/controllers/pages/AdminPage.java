@@ -3,7 +3,8 @@ package controllers.pages;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import storage.hotel.Hotel;
-import storage.userInfo.UserInfoInstance;
+import storage.userInfo.UserInfo;
+import storage.userToken.UserTokenInstance;
 import utils.FreeMarker;
 import utils.Request;
 import utils.Session;
@@ -33,10 +34,10 @@ public class AdminPage extends HttpServlet {
         String token = Session.getFromSession(req, Session.KEY_TOKEN_STRING);
 
         try {
-            if(!UserInfoInstance.getUserInfoInstance().getUserInfoByToken(token).isAdmin()) {
+            UserInfo userInfo =UserTokenInstance.getUserTokenInstance().getUserInfoByToken(token);
+
+            if(userInfo == null || !userInfo.isAdmin()) {
                 resp.getWriter().println(FreeMarker.generateErrorPage("Error", webAddress, this));
-                freeMarker.putString(FreeMarker.KEY_TOKEN, token);
-                resp.getWriter().println(freeMarker);
                 resp.setContentType("text/html");
                 return;
             }

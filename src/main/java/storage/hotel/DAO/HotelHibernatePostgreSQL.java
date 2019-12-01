@@ -1,6 +1,5 @@
 package storage.hotel.DAO;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -15,11 +14,11 @@ import java.util.Set;
 
 public class HotelHibernatePostgreSQL implements HotelDAO {
 
-    private static final String REQUEST_GET_ALL_HOTELS = "select H.id, H.name, H.country, H.city, H.website, coalesce(HW.avg, 0) as averageRating from \n" +
-            "(SELECT ID, NAME, COUNTRY, CITY, WEBSITE FROM hotel) H \n" +
+    private static final String REQUEST_GET_ALL_HOTELS = "select H.id, H.name, H.country, H.city, H.website, coalesce(HW.avg, 0) as averageRating, H.star, H.description from \n" +
+            "(SELECT * FROM hotel) H \n" +
             "left outer join \n" +
             "(SELECT hotel_id, avg(rating) as AVG FROM hotel_review GROUP BY hotel_id) HW \n" +
-            "on H.ID = HW.hotel_id GROUP BY H.id, h.name, h.country, h.website, h.city, hw.AVG ORDER BY h.name";
+            "on H.ID = HW.hotel_id GROUP BY H.id, h.name, h.country, h.website, h.city, hw.AVG, H.star, H.description ORDER BY h.name";
 
     @Override
     public Set<Hotel> getAllHotels() {
@@ -43,6 +42,8 @@ public class HotelHibernatePostgreSQL implements HotelDAO {
                         .withCity(row[3].toString())
                         .withWebsite(row[4].toString())
                         .withAverageRating(Double.parseDouble(row[5].toString()))
+                        .withStar(Integer.parseInt(row[6].toString()))
+                        .withDescription(row[7].toString())
                         .build());
             }
 
@@ -88,6 +89,32 @@ public class HotelHibernatePostgreSQL implements HotelDAO {
 
     @Override
     public boolean updateHotelById(Hotel hotel) {
-        return false;
+        SessionFactory sessionFactory = ConnectionHibernate.getConnection();
+        Session session = sessionFactory.openSession();
+        Hotel oldHotel = null;
+        try{
+            session.beginTransaction();
+
+            Criteria criteria = session.createCriteria(Hotel.class);
+            criteria.add(Restrictions.idEq(hotel.getId()));
+
+            oldHotel = (Hotel) criteria.list().get(0);
+            oldHotel.setCity(hotel.getCity());
+            oldHotel.setCountry(hotel.getCountry());
+            oldHotel.setWebsite(hotel.getWebsite());
+            oldHotel.setDescription(hotel.getDescription());
+            oldHotel.setName(hotel.getName());
+            oldHotel.setStar(hotel.getStar());
+
+            session.update(oldHotel);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        }
+        catch (Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        }
     }
 }

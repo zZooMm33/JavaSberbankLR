@@ -9,13 +9,13 @@
 
 </head>
 <body>
-<#include "elements/menu.ftl">
 
 <div class="container">
     <div class="row">
         <div class="col-12">
             <h1 class="mt-4 center">Error</h1>
             <p><b>ErrorText: </b> ${errorText}</p>
+            <a href="${webAddress}"><button type="button" class="btn btn-primary">Home</button></a>
         </div>
     </div>
 </div>
