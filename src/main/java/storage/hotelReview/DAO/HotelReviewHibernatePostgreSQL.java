@@ -120,6 +120,7 @@ public class HotelReviewHibernatePostgreSQL implements HotelReviewDAO {
             oldHotelReview.setRating(hotelReview.getRating());
             oldHotelReview.setDateOfVisit(hotelReview.getDateOfVisit());
             oldHotelReview.setDescription(hotelReview.getDescription());
+            oldHotelReview.setHotel(hotelReview.getHotel());
 
             session.update(oldHotelReview);
             session.getTransaction().commit();

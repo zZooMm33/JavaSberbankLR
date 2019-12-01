@@ -2,6 +2,7 @@ package controllers.pages;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import storage.hotel.Hotel;
 import storage.hotelReview.HotelReview;
 import storage.userInfo.UserInfo;
 import utils.FreeMarker;
@@ -24,12 +25,29 @@ public class UserProfile extends HttpServlet {
      */
     public static final String KEY_USER_INFO = "userInfo";
 
+    /**
+     * Переменная (для ftl) в которую будет записан список отелей
+     */
+    public static final String KEY_HOTEL_LIST = "hotels";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String webAddress = "" + req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
         FreeMarker freeMarker = new FreeMarker(FreeMarker.FILE_PROFILE, webAddress, this);
         String token = Session.getFromSession(req, Session.KEY_TOKEN_STRING);
         UserInfo userInfo = null;
+        Set<Hotel> hotels = null;
+
+        try {
+            String commJson= Request.sendGetRequest(webAddress+"/restApi/hotels");
+            ObjectMapper mapper = new ObjectMapper();
+            hotels = mapper.readValue(commJson, new TypeReference<Set<Hotel>>(){});
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        freeMarker.putList(KEY_HOTEL_LIST, hotels);
 
         try {
             String commJson= Request.sendGetRequest(webAddress+"/restApi/userInfo?token=" + token);
@@ -53,9 +71,10 @@ public class UserProfile extends HttpServlet {
                 e.printStackTrace();
             }
         }
+        freeMarker.putVal(KEY_USER_INFO, userInfo);
 
         freeMarker.putString(FreeMarker.KEY_TOKEN, token);
-        freeMarker.putVal(KEY_USER_INFO, userInfo);
+
         resp.getWriter().println(freeMarker);
         resp.setContentType("text/html");
     }

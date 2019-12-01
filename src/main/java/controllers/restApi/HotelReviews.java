@@ -3,6 +3,7 @@ package controllers.restApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.io.IOUtils;
+import storage.hotel.HotelInstance;
 import storage.hotelReview.HotelReview;
 import storage.hotelReview.HotelReviewInstance;
 import utils.SplitQuery;
@@ -69,6 +70,7 @@ public class HotelReviews extends HttpServlet {
                     .withDateOfVisit(map.get("dateOfVisit").get(0))
                     .withRating(Integer.parseInt(map.get("rating").get(0)))
                     .withDescription(map.get("description").get(0))
+                    .withHotel(HotelInstance.getHotelInstance().getHotelById(Integer.parseInt(map.get("hotelId").get(0))))
                     .build();
 
             if (HotelReviewInstance.getHotelReviewInstance().updateHotelReviewById(hotelReview)){

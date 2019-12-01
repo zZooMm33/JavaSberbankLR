@@ -75,16 +75,25 @@
                     <#list userInfo.getHotelReview() as comment>
                         <div class="divHotel">
                             <label for="hotelName">Hotel name</label>
-                            <input type="text" class="form-control" id="hotelName${comment.getId()}" disabled value="${comment.getHotel().getName()}">
+
+                            <select id="hotelChange${comment.getId()}" class="custom-select">
+                                <#list hotels as hot>
+                                    <#if hot.getId()==comment.getHotel().getId()>
+                                        <option value="${hot.getId()}" selected>${hot.getName()}</option>
+                                    <#else>
+                                        <option value="${hot.getId()}">${hot.getName()}</option>
+                                    </#if>
+                                </#list>
+                            </select>
 
                             <label for="dateOfVisit">DateOfVisit</label>
                             <input type="date" class="form-control" id="dateOfVisit${comment.getId()}" placeholder="Enter visit date" <#if comment.getDateOfVisit()?has_content> value=${comment.getDateOfVisit()}</#if>>
 
                             <label for="rating">Rating</label>
-                            <input type="text" class="form-control" id="rating${comment.getId()}" value=${comment.getRating()}>
+                            <input type="text" class="form-control" id="rating${comment.getId()}" <#if comment.getRating()??>value=${comment.getRating()}</#if>>
 
                             <label for="description">Description</label>
-                            <input type="text" class="form-control" id="description${comment.getId()}" value="${comment.getDescription()}">
+                            <input type="text" class="form-control" id="description${comment.getId()}" <#if comment.getDescription()??>value="${comment.getDescription()}"</#if>>
 
                             <button type="button" class="btn btn-primary mt-2 buttonChangeComment" onclick="changeComment(${comment.getId()});" id=${"change" + comment.getId()}>Change</button>
                             <button type="button" class="btn btn-primary mt-2 buttonDeleteComment" onclick="deleteComment(${comment.getId()});" id=${"delete" + comment.getId()}>Delete</button>
@@ -127,12 +136,13 @@
     function changeComment(idComment) {
         var dateOfVisit= document.getElementById("dateOfVisit"+idComment).value,
             rating = document.getElementById("rating"+idComment).value,
-            description = document.getElementById("description"+idComment).value;
+            description = document.getElementById("description"+idComment).value,
+            hotelId = document.getElementById("hotelChange"+idComment).value;
 
         $.ajax({
             type: "PUT",
             url: "${webAddress}/restApi/hotelReviews",
-            data: "&dateOfVisit="+ dateOfVisit + "&rating="+ rating + "&description="+ description+ "&idComment="+ idComment,
+            data: "&dateOfVisit="+ dateOfVisit + "&rating="+ rating + "&description="+ description+ "&idComment="+ idComment+ "&hotelId="+ hotelId,
             success: function(data) {
                 alert(data.successfully);
             },
